@@ -5,7 +5,9 @@ const router = express.Router();
 
 // home page route
 router.get("/", (req, res, next) => {
-  res.status(200).render("home", {});
+  res.status(200).render("home", {
+      css: ["home.css"]
+  });
 });
 
 module.exports = router;
