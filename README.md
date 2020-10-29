@@ -1,1 +1,1 @@
-# cs340_acnh
+# CS 340 Animal Crossing: New Horizons
