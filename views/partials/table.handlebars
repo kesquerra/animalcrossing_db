@@ -1,16 +1,18 @@
-<thead>
-    <tr>
-        {{#each column_name}}
-            <th>{{this}}</th>
-        {{/each}}
-    </tr>
-</thead>
-<tbody>
-    {{#each record}}
+<table class="table">
+    <thead>
         <tr>
-            {{#each ../column_name}}
-                <td>{{lookup .. this}}</td>
+            {{#each column_name}}
+                <th>{{this}}</th>
             {{/each}}
         </tr>
-     {{/each}}
-</tbody>
+    </thead>
+    <tbody>
+        {{#each record}}
+            <tr>
+                {{#each ../column_name}}
+                    <td>{{lookup .. this}}</td>
+                {{/each}}
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
