@@ -1,0 +1,16 @@
+<thead>
+    <tr>
+        {{#each column_name}}
+            <th>{{this}}</th>
+        {{/each}}
+    </tr>
+</thead>
+<tbody>
+    {{#each record}}
+        <tr>
+            {{#each ../column_name}}
+                <td>{{lookup .. this}}</td>
+            {{/each}}
+        </tr>
+     {{/each}}
+</tbody>

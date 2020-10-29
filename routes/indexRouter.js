@@ -12,31 +12,38 @@ router.get("/", (req, res, next) => {
 
 router.get("/villager", (req, res, next) => {
     res.status(200).render("villager", {
-      css: ["table.css"]
+      css: ["table.css"],
+      column_name: ["villagerID", "name", "birthday", "hobby", "species", "personality", "island"]
+      //record: sql.getQuery() //populate with SQL query
     });
 });
 
 router.get("/personality", (req, res, next) => {
     res.status(200).render("personality", {
-      css: ["table.css"]
+      css: ["table.css"],
+      column_name: ["personalityID", "type", "description", "wakeTime", "sleepTime", "activities", "compatible"]
+      //record: sql.getQuery() //populate with SQL quer
     });
 });
 
 router.get("/species", (req, res, next) => {
     res.status(200).render("species", {
-      css: ["table.css"]
+      css: ["table.css"],
+      column_name: ["speciesID", "type"]
     });
 });
 
 router.get("/island", (req, res, next) => {
     res.status(200).render("island", {
-      css: ["table.css"]
+      css: ["table.css"],
+      column_name: ["islandID", "name"]
     });
 });
 
 router.get("/facility", (req, res, next) => {
     res.status(200).render("facility", {
-      css: ["table.css"]
+      css: ["table.css"],
+      column_name: ["facilityID", "name"]
     });
   });
 
