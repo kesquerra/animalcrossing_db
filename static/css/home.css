@@ -16,8 +16,8 @@ body {
 }
 
 body {
-  display: -ms-flexbox;
-  display: flex;
+  /*display: -ms-flexbox;
+  display: flex;*/
   color: #fff;
   background-image: url("TomNook.jpg");
   background-repeat: no-repeat, repeat;
