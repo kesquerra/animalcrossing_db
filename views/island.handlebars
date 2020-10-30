@@ -1,10 +1,11 @@
 <div class="page-wrapper">
     <h1>Island Table</h1>
     {{>table}}
+    
 <form>
     <fieldset>
         <legend><h3>Add My Island</h3></legend>
-        <label><h4>Name: </h4></label><input type="text">
+        <label>Name: </label><input type="text">
         <input type="submit"><br>
     </fieldset>
 </form>
@@ -12,21 +13,17 @@
 <form>
     <fieldset>
         <legend><h3>Update My Island</h3></legend>
-        <label><h4>Name: </h4></label>
+        <label>Name: </label>
         <select id="island_name">
         </select><br>
-        <label><h4>New Name: </h4></label><input type="text"><br>
+        <label>New Name: </label><input type="text"><br>
         <input type="submit"><br>
+        <label>New Villager: </label>
+        <select id="new_villager">
+        <label>New Facility: </label>
+        <select id="new_facility">
+        </select><br>
     </fieldset>
 </form>
 
-<form>
-    <fieldset>
-        <legend><h3>Delete My Island</h3></legend>
-        <label><h4>Name: </h4></label>
-        <select id="island_name">
-        </select><br>
-        <input type="submit"><br>
-    </fieldset>
-</form>
 </div>

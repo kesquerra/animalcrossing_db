@@ -1,4 +1,26 @@
 <div class="page-wrapper">
     <h1>Personality Table</h1>
     {{>table}}
+    
+<form>
+    <fieldset>
+        <legend class="pform"><h3>Add a Personality</h3></legend>
+        <label class="pform">Type: </label>        
+            <select id="type" class="pform">
+            <option value="cranky">Cranky</option>
+            <option value="peppy">Peppy</option>
+            </select><br>
+        <label class="pform">Description: </label><input type="text"><br>
+        <label class="pform">Wake Time: </label><input type="time"><br>
+        <label class="pform">Sleep Time: </label><input type="time"><br>
+        <label class="pform">Activity: </label>        
+            <select id="activty" class="pform">
+            </select><br>
+        <label>Compatible with: </label>
+        <select id="compatible">
+            <option value="cranky">Cranky</option>
+            <option value="peppy">Peppy</option>
+        </select><br>
+    </fieldset>
+</form>
 </div> 
