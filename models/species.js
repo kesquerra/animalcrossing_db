@@ -1,7 +1,7 @@
 var mysql = require("../loaders/mysql.js");
 var Species = {}
 
-Species.getAllSpecies = function() {
+Species.getAll = function() {
     return mysql.query(getQuery("allSpecies"));
 }
 

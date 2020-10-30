@@ -1,5 +1,9 @@
 const express = require("express");
-var Species = require("../models/species.js")
+var Species = require("../models/species.js");
+var Personality = require("../models/personality.js");
+var Island = require("../models/island.js");
+var Facility = require("../models/facility.js");
+var Villager = require("../models/villager.js");
 
 // new router will handle all request to /
 const router = express.Router();
@@ -12,25 +16,36 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/villager", (req, res, next) => {
-    res.status(200).render("villager", {
+  Villager.getAll()
+  .then(function(result) {
+    res.render("villager", {
       css: ["table.css"],
-      column_name: ["villagerID", "name", "birthday", "hobby", "species", "personality", "island"]
-      //record: sql.getQuery() //populate with SQL query
-    });
+      column_name: ["villagerID", "name", "birthday", "hobby", "species", "personality", "island"],
+      record: result
+    })
+  })
+  .catch(function(err) {
+    next(err);
+  })
 });
 
 router.get("/personality", (req, res, next) => {
-    res.status(200).render("personality", {
-      css: ["table.css"],
-      column_name: ["personalityID", "type", "description", "wakeTime", "sleepTime", "activities", "compatible"]
-      //record: sql.getQuery() //populate with SQL quer
-    });
+    Personality.getAll()
+    .then(function(result) {
+      res.render("personality", {
+        css: ["table.css"],
+        column_name: ["personalityID", "type", "description", "wakeTime", "sleepTime", "activities", "compatible"],
+        record: result
+      })
+    })
+    .catch(function(err) {
+      next(err);
+    })
 });
 
 router.get("/species", (req, res, next) => {
-    Species.getAllSpecies()
+    Species.getAll()
     .then(function(result) {
-      console.log(result);
       res.render("species", {
         css: ["table.css"],
         column_name: ["speciesID", "type"],
@@ -43,17 +58,31 @@ router.get("/species", (req, res, next) => {
 });
 
 router.get("/island", (req, res, next) => {
-    res.status(200).render("island", {
+  Island.getAll()
+  .then(function(result) {
+    res.render("island", {
       css: ["table.css"],
-      column_name: ["islandID", "name"]
-    });
+      column_name: ["islandID", "name"],
+      record: result
+    })
+  })
+  .catch(function(err) {
+    next(err);
+  });
 });
 
 router.get("/facility", (req, res, next) => {
-    res.status(200).render("facility", {
+  Facility.getAll()
+  .then(function(result) {
+    res.render("facility", {
       css: ["table.css"],
-      column_name: ["facilityID", "name"]
-    });
+      column_name: ["facilityID", "name"],
+      record: result
+    })
+  })
+  .catch(function(err) {
+    next(err);
   });
+});
 
 module.exports = router;
