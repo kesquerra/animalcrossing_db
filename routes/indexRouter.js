@@ -1,4 +1,5 @@
 const express = require("express");
+var Species = require("../models/species.js")
 
 // new router will handle all request to /
 const router = express.Router();
@@ -27,9 +28,17 @@ router.get("/personality", (req, res, next) => {
 });
 
 router.get("/species", (req, res, next) => {
-    res.status(200).render("species", {
-      css: ["table.css"],
-      column_name: ["speciesID", "type"]
+    Species.getAllSpecies()
+    .then(function(result) {
+      console.log(result);
+      res.render("species", {
+        css: ["table.css"],
+        column_name: ["speciesID", "type"],
+        record: result
+      })
+    })
+    .catch(function(err) {
+      next(err);
     });
 });
 
