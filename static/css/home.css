@@ -66,3 +66,8 @@ body {
     opacity: 90%;
 }
 
+.modal-text {
+  color: black;
+  background-color: white; 
+}
+

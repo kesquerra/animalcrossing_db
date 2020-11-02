@@ -2,29 +2,46 @@
     <h1>Villager Table</h1>
     {{>table}}
 
-<form>
-    <fieldset>
-        <legend class="vform"><h3>Add a Villager</h3></legend>
-        <label class="vform">Name: </label><input type="text"><br>
-        <label class="vform">Birthday: </label><input type="date"><br>
-        <label class="vform">Hobby: </label>
-        <select id="hobby" class="vform">
+
+<div class="button"><a href="/villager" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#villager-modal">Create A Villager</a></div>
+
+<!-- Villager Modal-->
+<div class="modal fade" id="villager-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-text">Create A Villager</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix black-text"></i>
+          <input type="text" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Name</label>
+          <input type="date" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Birthday</label><br>
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Hobby</label>
+          <select id="hobby">
             <option value="nature">Nature</option>
             <option value="fitness">Fitness</option>
-        </select><br>
-        <label>Species: </label>
-        <select id="species">
-            <option value="bird">Bird</option>
-            <option value="squirrel">Squirrel</option>
-        </select><br>
-        <label>Personality: </label>
-        <select id="personality">
-            <option value="cranky">Cranky</option>
-            <option value="peppy">Peppy</option>
-        </select><br>
-        <label>Island: </label>
-        <select></select><br>
-        <input type="submit">
-    </fieldset>
-</form>
+          </select><br>
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Species</label>
+          <select id="species">
+            <option value="nature">Bird</option>
+          </select><br>
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Personality</label>
+          <select id="personality">
+            <option value="nature">Cranky</option>
+            <option value="nature">Peppy</option>
+          </select><br>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <a href="/villager" class="modal-text">Submit</a>
+      </div>
+    </div>
+  </div>
 </div>
