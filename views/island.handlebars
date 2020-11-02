@@ -2,28 +2,64 @@
     <h1>Island Table</h1>
     {{>table}}
     
-<form>
-    <fieldset>
-        <legend><h3>Add My Island</h3></legend>
-        <label>Name: </label><input type="text">
-        <input type="submit"><br>
-    </fieldset>
-</form>
+<!-- Add Island -->
+<div class="button"><a href="/villager" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#add-island-modal">Create An Island</a></div>
 
-<form>
-    <fieldset>
-        <legend><h3>Update My Island</h3></legend>
-        <label>Name: </label>
-        <select id="island_name">
-        </select><br>
-        <label>New Name: </label><input type="text"><br>
-        <input type="submit"><br>
-        <label>New Villager: </label>
-        <select id="new_villager">
-        <label>New Facility: </label>
-        <select id="new_facility">
-        </select><br>
-    </fieldset>
-</form>
+<!-- Add Island Modal -->
+<div class="modal fade" id="add-island-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-text">Create An Island</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix black-text"></i>
+          <input type="text" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Island Name</label>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <a href="/island" class="modal-text">Submit</a>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Update Island Modal -->
+<div class="modal fade" id="update-island-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-text">Update Island</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix"></i>
+          <input type="text" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Island Name</label>
+          <select id="add-villager" class="drop-down">
+            <option value="admiral">Admiral</option>
+          </select>
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Add A Villager</label>
+          <select id="add-facility" class="drop-down">
+            <option value="admiral">Resident Services</option>
+          </select>
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Add A Facility</label>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <a href="/island" class="modal-text">Submit</a>
+      </div>
+    </div>
+  </div>
+</div>
 </div>

@@ -2,12 +2,31 @@
     <h1>Facility Table</h1>
     {{>table}}
 
-<form>
-    <fieldset>
-        <legend><h3>Add A Facility</h3></legend>
-        <label><h4>Facility Name: </h4></label><input type="text">
-        <input type="submit"><br>
-    </fieldset>
-</form>
+<div class="button"><a href="/facility" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#facility-modal">Create A Facility</a></div>
+
+<!-- Facility Modal-->
+<div class="modal fade" id="facility-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-text">Create A Facility</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix black-text"></i>
+          <input type="text" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Facility Name</label>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <a href="/facility" class="modal-text">Submit</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 </div>
