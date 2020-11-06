@@ -1,26 +1,46 @@
 <div class="page-wrapper">
     <h1>Personality Table</h1>
     {{>table}}
+
+<div class="button"><a href="/personality" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#person-modal">Create A Personality</a></div>
     
-<form>
-    <fieldset>
-        <legend class="pform"><h3>Add a Personality</h3></legend>
-        <label class="pform">Type: </label>        
-            <select id="type" class="pform">
-            <option value="cranky">Cranky</option>
-            <option value="peppy">Peppy</option>
-            </select><br>
-        <label class="pform">Description: </label><input type="text"><br>
-        <label class="pform">Wake Time: </label><input type="time"><br>
-        <label class="pform">Sleep Time: </label><input type="time"><br>
-        <label class="pform">Activity: </label>        
-            <select id="activty" class="pform">
-            </select><br>
-        <label>Compatible with: </label>
-        <select id="compatible">
-            <option value="cranky">Cranky</option>
-            <option value="peppy">Peppy</option>
-        </select><br>
-    </fieldset>
-</form>
+<!-- Personality Modal-->
+<div class="modal fade" id="person-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-text">Create A Personality</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix black-text"></i>
+          <input type="text" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Type</label>
+          <input type="text" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Description</label>
+          <input type="time" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Wake Time</label><br>
+          <input type="time" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Sleep Time</label><br>
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Activity</label>
+          <select id="species">
+            <option value="nature">Test</option>
+          </select><br>
+          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Compatible with:</label>
+          <input type="checkbox" id="cranky" name="cranky" value="cranky">
+          <label for="snooty" class="modal-text"> Cranky </label>
+          <input type="checkbox" id="snooty" name="snooty" value="snooty">
+          <label for="snooty" class="modal-text"> Snooty </label><br>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <a href="/personality" class="modal-text">Submit</a>
+      </div>
+    </div>
+  </div>
+</div>
 </div> 
