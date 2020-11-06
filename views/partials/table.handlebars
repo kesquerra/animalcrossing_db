@@ -1,20 +1,26 @@
-<table class="table table-striped">
-    <thead>
-        <tr>
-            {{#each column_name}}
-                <th>{{this}}</th>
-            {{/each}}
-        </tr>
-    </thead>
-    <tbody>
-        {{#each record}}
+{{>searchbar}}
+
+<div class="record-table">
+    <table class="table table-striped">
+        <thead>
             <tr>
-                {{#each ../column_name}}
-                    <td>{{lookup .. this}}</td>
+                {{#each column_name}}
+                    <th>{{this}}</th>
                 {{/each}}
-                <td><button>Update</button></td>
-                <td><button>Delete</button></td>
+                    <th>update</th>
+                    <th>delete</th>
             </tr>
-        {{/each}}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {{#each record}}
+                <tr>
+                    {{#each ../column_name}}
+                        <td>{{lookup .. this}}</td>
+                    {{/each}}
+                    <td><button>Update</button></td>
+                    <td><button>Delete</button></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
