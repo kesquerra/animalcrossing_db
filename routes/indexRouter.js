@@ -4,6 +4,7 @@ var Personality = require("../models/personality.js");
 var Island = require("../models/island.js");
 var Facility = require("../models/facility.js");
 var Villager = require("../models/villager.js");
+var Database = require("../models/database.js");
 
 // new router will handle all request to /
 const router = express.Router();
@@ -85,5 +86,23 @@ router.get("/facility", (req, res, next) => {
     next(err);
   });
 });
+
+router.get("/:table/:field/:value", (req, res, next) => {
+  Database.getAllFieldNames(req.params.table)
+  .then(function(column_name) {
+    Database.getAllFromTableByField(req.params.table, req.params.field, req.params.value)
+    .then(function(result) {
+      console.log(req.params)
+      console.log(result);
+      res.render(req.params.table, {
+      css: ["table.css", "table-page.css"],
+      record: result,
+      column_name
+    })
+  })
+
+  })
+  
+})
 
 module.exports = router;

@@ -5,7 +5,7 @@
         <thead>
             <tr>
                 {{#each column_name}}
-                    <th>{{this}}</th>
+                    <th>{{this.COLUMN_NAME}}</th>
                 {{/each}}
                     <th>update</th>
                     <th>delete</th>
@@ -15,7 +15,7 @@
             {{#each record}}
                 <tr>
                     {{#each ../column_name}}
-                        <td>{{lookup .. this}}</td>
+                        <td>{{lookup .. this.COLUMN_NAME}}</td>
                     {{/each}}
                     <td><button>Update</button></td>
                     <td><button>Delete</button></td>
