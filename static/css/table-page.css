@@ -1,12 +1,9 @@
 .button {
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     size: 100px;
-    width: 625px;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
+    width: 400px;
+    margin: auto;
+    margin-left: 1200px;
     transform: translate(-50%, -50%);
     opacity: 70%;
 }
