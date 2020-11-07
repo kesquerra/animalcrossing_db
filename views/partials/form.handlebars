@@ -1,0 +1,35 @@
+
+<div class="modal-body mx-3">
+    <div class="md-form mb-5">
+        <i class="fas fa-user prefix black-text"></i>
+        <form action={{form_action}} method="POST"></form>
+        {{#each text_input}}
+            <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">{{this}}</label>
+            <input type="text" class="form-control validate"><br>
+        {{/each}}
+
+        {{#each date_input}}
+            <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">{{this}}</label>
+            <input type="date" class="form-control validate"><br>
+        {{/each}}
+
+        {{#each time_input}}
+            <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">{{this}}</label>
+            <input type="time" class="form-control validate"><br>
+        {{/each}}
+
+        {{#each drop_down_input}}
+            <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">{{this}}</label>
+            <select id="add-villager" class="drop-down">
+            </select><br>
+        {{/each}}
+
+        {{#each box_input}}
+            <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">{{this}}</label>
+            <input type="checkbox" id="cranky" name="cranky" value="cranky">
+            <label for="cranky" class="modal-text"> Cranky </label>
+        {{/each}}
+        <br><br><input type="submit"></form>
+    </div>
+</div>
+
