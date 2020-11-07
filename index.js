@@ -4,6 +4,7 @@ const exphbs = require("express-handlebars");
 const path = require("path");
 const bodyParser = require("body-parser");
 const db = require("./loaders/mysql.js")
+const hb = require("./loaders/helpers.js")
 
 // router imports
 const indexRouter = require("./routes/indexRouter");
@@ -25,6 +26,9 @@ app.engine(
     defaultLayout: "main",
     layoutsDir: path.join(__dirname, "views/layouts"),
     partialsDir: path.join(__dirname, "views/partials"),
+    helpers: {
+      ifCond: hb.registerHelper
+    }
   })
 );
 app.set("view engine", "handlebars");
