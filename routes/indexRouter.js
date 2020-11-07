@@ -123,9 +123,27 @@ router.get("/:table/:field/:value", (req, res, next) => {
       form_action: ["/villager"]
     })
   })
-
   })
-  
 })
+
+router.get("/:table/all", (req, res, next) => {
+  Database.getAllFieldNames(req.params.table)
+  .then(function(column_name) {
+    Database.getAllFromTable(req.params.table)
+    .then(function(result) {
+      res.render(req.params.table, {
+      css: ["table.css"],
+      record: result,
+      column_name,
+      title: {add: "Create A Villager", update: "Update Villager"}, 
+      text_input: ["Villager Name"],
+      date_input: ["Birthday"],
+      drop_down_input: ["Hobby", "Species", "Personality"],
+      form_action: ["/villager"]
+    })
+  })
+  })
+})
+
 
 module.exports = router;
