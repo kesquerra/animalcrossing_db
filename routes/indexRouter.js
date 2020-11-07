@@ -112,12 +112,15 @@ router.get("/:table/:field/:value", (req, res, next) => {
   .then(function(column_name) {
     Database.getAllFromTableByField(req.params.table, req.params.field, req.params.value)
     .then(function(result) {
-      console.log(req.params)
-      console.log(result);
       res.render(req.params.table, {
       css: ["table.css", "table-page.css"],
       record: result,
-      column_name
+      column_name,
+      title: {add: "Create A Villager", update: "Update Villager"}, 
+      text_input: ["Villager Name"],
+      date_input: ["Birthday"],
+      drop_down_input: ["Hobby", "Species", "Personality"],
+      form_action: ["/villager"]
     })
   })
 
