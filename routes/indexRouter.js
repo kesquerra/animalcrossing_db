@@ -63,6 +63,10 @@ router.get("/island", (req, res, next) => {
     res.render("island", {
       css: ["table.css", "table-page.css"],
       column_name: ["islandID", "name"],
+      title: {add: "Create An Island", update: "Update Island"}, 
+      text_input: ["Island Name"],
+      drop_down_input: ["Add a Villager", "Add A Facility"],
+      form_action: ["/island"],
       record: result
     })
   })
@@ -77,8 +81,10 @@ router.get("/facility", (req, res, next) => {
     res.render("facility", {
       css: ["table.css", "table-page.css"],
       column_name: ["facilityID", "name"],
+      title: {add: "Create A Facility", update: "Update Facility"}, 
+      text_input: ["Facility Name"],
+      form_action: ["/facility"],
       record: result, 
-      modal_section: ["add-facility.handlebars"]
     })
   })
   .catch(function(err) {
