@@ -21,6 +21,11 @@ router.get("/villager", (req, res, next) => {
     res.render("villager", {
       css: ["table.css", "table-page.css"],
       column_name: ["villagerID", "name", "birthday", "hobby", "species", "personality", "island"],
+      title: {add: "Create A Villager", update: "Update Villager"}, 
+      text_input: ["Villager Name"],
+      date_input: ["Birthday"],
+      drop_down_input: ["Hobby", "Species", "Personality"],
+      form_action: ["/villager"],
       record: result
     })
   })
@@ -35,6 +40,12 @@ router.get("/personality", (req, res, next) => {
       res.render("personality", {
         css: ["table.css", "table-page.css"],
         column_name: ["personalityID", "type", "description", "wakeTime", "sleepTime", "activities", "compatible"],
+        title: {add: "Create A Personality", update: "Update Personality"}, 
+        text_input: ["Description"],
+        drop_down_input: ["Type", "Activity"],
+        date_input: ["Wake Time", "Sleep Time"],
+        box_input: ["Compatible With"],
+        form_action: ["/personality"],
         record: result,
       })
     })
@@ -49,6 +60,9 @@ router.get("/species", (req, res, next) => {
       res.render("species", {
         css: ["table.css", "table-page.css"],
         column_name: ["speciesID", "type"],
+        title: {add: "Create A Species", update: "Update Species"}, 
+        text_input: ["Species Name"],
+        form_action: ["/species"],
         record: result
       })
     })
@@ -63,6 +77,10 @@ router.get("/island", (req, res, next) => {
     res.render("island", {
       css: ["table.css", "table-page.css"],
       column_name: ["islandID", "name"],
+      title: {add: "Create An Island", update: "Update Island"}, 
+      text_input: ["Island Name"],
+      drop_down_input: ["Add a Villager", "Add A Facility"],
+      form_action: ["/island"],
       record: result
     })
   })
@@ -77,8 +95,10 @@ router.get("/facility", (req, res, next) => {
     res.render("facility", {
       css: ["table.css", "table-page.css"],
       column_name: ["facilityID", "name"],
+      title: {add: "Create A Facility", update: "Update Facility"}, 
+      text_input: ["Facility Name"],
+      form_action: ["/facility"],
       record: result, 
-      modal_section: ["add-facility.handlebars"]
     })
   })
   .catch(function(err) {
