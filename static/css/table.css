@@ -1,0 +1,27 @@
+.searchbar {
+    display: flex;
+    justify-content: center;
+}
+
+.input-search {
+    width: 25%;
+}
+
+.record-table {
+    display: flex;
+    justify-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 500px;
+    overflow: scroll;
+}
+
+.button {
+    padding-bottom: 10px;
+    size: 100px;
+    width: 400px;
+    margin: auto;
+    margin-left: 1200px;
+    transform: translate(-50%, -50%);
+    opacity: 70%;
+}

@@ -1,21 +1,26 @@
-<table class="table table-striped">
-    <thead>
-        <tr>
-            {{#each column_name}}
-                <th>{{this}}</th>
-            {{/each}}
-        </tr>
-    </thead>
-    <tbody>
-        {{#each record}}
+{{>searchbar}}
+
+<div class="record-table">
+    <table class="table table-striped">
+        <thead>
             <tr>
-                {{#each ../column_name}}
-                    <td>{{lookup .. this}}</td>
+                {{#each column_name}}
+                    <th>{{this.COLUMN_NAME}}</th>
                 {{/each}}
-                <td><div class="button1"><a class="btn btn-light btn-sm" data-toggle="modal" data-target="#update-modal">Update</a></div></td>
-                <td><div class="button1"><a class="btn btn-light btn-sm">Delete</a></div></td>
+                    <th>update</th>
+                    <th>delete</th>
             </tr>
-        {{/each}}
-        {{>update-modal}}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {{#each record}}
+                <tr>
+                    {{#each ../column_name}}
+                        <td>{{lookup .. this.COLUMN_NAME}}</td>
+                    {{/each}}
+                    <td><div class="button1"><a class="btn btn-light btn-sm" data-toggle="modal" data-target="#update-modal">Update</a></div></td>
+                    <td><div class="button1"><a class="btn btn-light btn-sm">Delete</a></div></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
