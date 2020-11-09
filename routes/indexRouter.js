@@ -34,7 +34,7 @@ router.get("/search/:table/:field/:value", (req, res, next) => {
 })
 
 router.get("/:table/all", (req, res, next) => {
-  Services.getFormData(req.params.table)
+  Services.getFormData(req.params.table, "name")
   .then(function(form_data) {
     Database.getAllFromTable(req.params.table)
     .then(function(result) {

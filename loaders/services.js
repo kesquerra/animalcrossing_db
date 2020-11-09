@@ -1,7 +1,7 @@
 var Services = {};
 var Database = require("../models/database.js");
 
-Services.getFormData = function(table) {
+Services.getFormData = function(table, field_label) {
     return new Promise(function(resolve, reject) {
         Database.getAllFieldNames(table)
         .then(function(result) {
@@ -9,11 +9,15 @@ Services.getFormData = function(table) {
             result.forEach(async (col) => {
                 //console.log(col);
                 if (col.COLUMN_KEY == 'MUL') {
-                    const uniques = await Database.getUniqueFromTableByField(table, col.COLUMN_NAME);
+                    const uniques = await Database.getUniqueFromTableByField(table, col.COLUMN_NAME, field_label);
+                    console.log(uniques);
                     var unique_vals = [];
                     uniques.forEach((val) => {
                         if (val[col.COLUMN_NAME] != 'null') {
-                            unique_vals.push(val[col.COLUMN_NAME]);
+                            unique_vals.push({
+                                "value": val[col.COLUMN_NAME],
+                                "label": val[field_label]
+                            })
                         };
                     });
                     form_data.push({
@@ -21,18 +25,8 @@ Services.getFormData = function(table) {
                         "COLUMN_KEY": col.COLUMN_KEY,
                         "COLUMN_NAME": col.COLUMN_NAME,
                         "UNIQUE_VALUES": unique_vals
+                        //"UNIQUE_LABELS":
                     });
-                    /*Database.getUniqueFromTableByField(table, col.COLUMN_NAME)
-                    .then(function(uniques) {
-                        form_data.push({
-                            "DATA_TYPE":col.DATA_TYPE,
-                            "COLUMN_KEY": col.COLUMN_KEY,
-                            "COLUMN_NAME": col.COLUMN_NAME,
-                            "UNIQUE_VALUES": uniques
-                        });
-                        //console.log(form_data);
-                    })
-                    .catch(reject);*/
                 } else {
                     form_data.push({
                         "DATA_TYPE":col.DATA_TYPE,
