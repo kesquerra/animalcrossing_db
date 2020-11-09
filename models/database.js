@@ -40,7 +40,9 @@ function getQuery(type) {
             query = "SELECT DISTINCT ??, ?? FROM ?? JOIN ?? ON ?? = ??";
             break;
         case "allVillagers":
-            query = "SELECT villager.name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, villager.hobby, species.name AS species, personality.name AS personality \
+            query = "SELECT villager.name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, \
+                    villager.hobby, species.name AS species, personality.name AS personality, \
+                    personality.description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities \
                     FROM villager \
                     JOIN species ON villager.species = species.speciesID \
                     JOIN personality ON villager.personality = personality.personalityID \
