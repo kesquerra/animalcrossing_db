@@ -13,6 +13,13 @@ Database.getAllFieldNames = function(table) {
     return mysql.query(getQuery("allFieldNames"), [table]);
 }
 
+Database.getUniqueFromTableByField = function(table, field, field_label) {
+    var table_field = table + "." + field;
+    var label = field + "." + field_label;
+    var field_id = field + "." + field + "ID";
+    return mysql.query(getQuery("uniqueFromTableByField"), [table_field, label, table, field, table_field, field_id]);
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
@@ -24,6 +31,9 @@ function getQuery(type) {
             break;
         case "allFieldNames":
             query = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ?;";
+            break;
+        case "uniqueFromTableByField":
+            query = "SELECT DISTINCT ??, ?? FROM ?? JOIN ?? ON ?? = ??";
             break;
     }
     return query;
