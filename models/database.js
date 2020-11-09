@@ -41,7 +41,7 @@ function getQuery(type) {
             break;
         case "allVillagers":
             query = "SELECT villager.name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, \
-                    villager.hobby, species.name AS species, personality.name AS personality, \
+                    villager.hobby, species.name AS species, personality.name AS personality, villager.image_url AS image_url, \
                     personality.description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities \
                     FROM villager \
                     JOIN species ON villager.species = species.speciesID \
