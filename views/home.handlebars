@@ -1,173 +1,21 @@
+<script src="../scripts/home.js"></script>
+
 <div class="home-page">
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 <h1 class="first-line">Nook Inc: Island Creator</h1>
 <br>
-<div class="button1" id="island"><a class="btn btn-light btn-lg btn-block" data-target="#add-modal">Create An Island</a></div>
+<div class="button1" id="island"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#isla">Create An Island</a></div>
 <div class="button"><a href="/island/all" class="btn btn-light btn-lg btn-block">View Islands</a></div>
-<div class="button" id="villager"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#add-modal">Create A Villager</a></div>
+<div class="button" id="villager"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#vill">Create A Villager</a></div>
 <div class="button"><a href="/villager/all" class="btn btn-light btn-lg btn-block">View Villagers</a></div>
-<div class="button" id="personality"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#add-modal">Create A Personality</a></div>
-<div class="button" id="species"><a href="/species/all" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#species-modal">Create A Species</a></div>
-<div class="button" id="facility"><a href="/facility/all" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#facility-modal">Create A Facility</a></div>
+<div class="button" id="personality"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#person">Create A Personality</a></div>
+<div class="button" id="species"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#spec">Create A Species</a></div>
+<div class="button" id="facility"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#fac">Create A Facility</a></div>
 </div>
 </div>
 
-{{>add-modal}}
-
-<!-- Island Modal-->
-{{!-- <div class="modal fade" id="island-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-text">Create An Island</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <i class="fas fa-user prefix black-text"></i>
-          <input type="text" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Island Name</label>
-        </div>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <a href="/island/all" class="modal-text">Submit</a>
-      </div>
-    </div>
-  </div>
-</div> --}}
-
-<!-- Villager Modal-->
-{{!-- <div class="modal fade" id="villager-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-text">Create A Villager</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <i class="fas fa-user prefix black-text"></i>
-          <input type="text" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Name</label>
-          <input type="date" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Birthday</label><br>
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Hobby</label>
-          <select id="hobby">
-            <option value="nature">Nature</option>
-            <option value="fitness">Fitness</option>
-          </select><br>
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Species</label>
-          <select id="species">
-            <option value="nature">Bird</option>
-          </select><br>
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Personality</label>
-          <select id="personality">
-            <option value="nature">Cranky</option>
-            <option value="nature">Peppy</option>
-          </select><br>
-        </div>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <a href="/villager/all" class="modal-text">Submit</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Personality Modal-->
-<div class="modal fade" id="person-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-text">Create A Personality</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <i class="fas fa-user prefix black-text"></i>
-          <input type="text" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Type</label>
-          <input type="text" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Description</label>
-          <input type="time" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Wake Time</label><br>
-          <input type="time" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Sleep Time</label><br>
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Activity</label>
-          <select id="species">
-            <option value="nature">Test</option>
-          </select><br>
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Compatible with:</label>
-          <input type="checkbox" id="cranky" name="cranky" value="cranky">
-          <label for="snooty" class="modal-text"> Cranky </label>
-          <input type="checkbox" id="snooty" name="snooty" value="snooty">
-          <label for="snooty" class="modal-text"> Snooty </label><br>
-        </div>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <a href="/personality/all" class="modal-text">Submit</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Species Modal-->
-<div class="modal fade" id="species-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-text">Create A Species</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <i class="fas fa-user prefix black-text"></i>
-          <input type="text" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Species Name</label>
-        </div>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <a href="/species/all" class="modal-text">Submit</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Facility Modal-->
-<div class="modal fade" id="facility-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-text">Create A Facility</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <i class="fas fa-user prefix black-text"></i>
-          <input type="text" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Facility Name</label>
-        </div>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <a href="/facility/all" class="modal-text">Submit</a>
-      </div>
-    </div>
-  </div>
-</div> --}}
-
-<script src="../scripts/home.js"></script>
+{{>add-modal species}}
+{{>add-modal villager}}
+{{>add-modal island}}
+{{>add-modal facility}}
+{{>add-modal personality}}

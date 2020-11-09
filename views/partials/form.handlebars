@@ -2,9 +2,9 @@
 <div class="modal-body mx-3">
     <div class="md-form mb-5">
         <i class="fas fa-user prefix black-text"></i>
-        <form action={{form_action}} method="POST"></form>
+        <form action={{form_action}} method="POST">
         {{#each column_name}}
-            
+        
             {{#ifCond this.DATA_TYPE "text"}}
             <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
             <input type="text" class="form-control validate"><br>
