@@ -14,15 +14,15 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/search/:table/:field/:value", (req, res, next) => {
-  Database.getAllFieldNames(req.params.table)
-  .then(function(column_name) {
+  Services.getFormData(req.params.table, "name")
+  .then(function(form_data) {
     Database.getAllFromTableByField(req.params.table, req.params.field, req.params.value)
     .then(function(result) {
       res.render(req.params.table, {
         css: ["table.css"],
         table_name: req.params.table,
         record: result,
-        column_name,
+        column_name: form_data,
         title: {add: "Create A " + req.params.table, update: "Update " + req.params.table}, 
         form_action: ["/" + req.params.table + "/create"]
     })
