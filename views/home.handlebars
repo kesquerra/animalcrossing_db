@@ -2,14 +2,16 @@
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 <h1 class="first-line">Nook Inc: Island Creator</h1>
 <br>
-<div class="button1"><a href="/island/all" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#island-modal">Create An Island</a></div>
-<div class="button"><a href="/island/all" class="btn btn-light btn-lg btn-block">View An Island</a></div>
+<div class="button1"><a href="/island/all" id="island" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#add-modal">Create An Island</a></div>
+<div class="button"><a href="/island/all" class="btn btn-light btn-lg btn-block">View Islands</a></div>
 <div class="button"><a href="/villager/all" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#villager-modal">Create A Villager</a></div>
+<div class="button"><a href="/villager/all" class="btn btn-light btn-lg btn-block">View Villagers</a></div>
 <div class="button"><a href="/personality/all" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#person-modal">Create A Personality</a></div>
 <div class="button"><a href="/species/all" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#species-modal">Create A Species</a></div>
 <div class="button"><a href="/facility/all" class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#facility-modal">Create A Facility</a></div>
 </div>
 </div>
+
 
 <!-- Island Modal-->
 <div class="modal fade" id="island-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -30,7 +32,7 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <a href="/island" class="modal-text">Submit</a>
+        <a href="/island/all" class="modal-text">Submit</a>
       </div>
     </div>
   </div>
@@ -71,7 +73,7 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <a href="/villager" class="modal-text">Submit</a>
+        <a href="/villager/all" class="modal-text">Submit</a>
       </div>
     </div>
   </div>
@@ -111,7 +113,7 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <a href="/personality" class="modal-text">Submit</a>
+        <a href="/personality/all" class="modal-text">Submit</a>
       </div>
     </div>
   </div>
@@ -136,7 +138,7 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <a href="/species" class="modal-text">Submit</a>
+        <a href="/species/all" class="modal-text">Submit</a>
       </div>
     </div>
   </div>
@@ -161,8 +163,10 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <a href="/facility" class="modal-text">Submit</a>
+        <a href="/facility/all" class="modal-text">Submit</a>
       </div>
     </div>
   </div>
 </div>
+
+<script src="../models/home.js"></script>
