@@ -53,6 +53,19 @@ router.get("/:table/all", (req, res, next) => {
   })
 })
 
+router.get("/shop_villagers", (req, res, next) => {
+  Database.getAllVillagers()
+  .then(function(villagers) {
+    res.render("shop_villagers", {
+      villagers
+    });
+  })
+  .catch(function(err) {
+    next(err);
+  }) 
+  
+})
+
 router.post("/search", (req, res, next) => {
   var b = req.body;
   res.redirect("/search/" + b.table + "/" + b.field + "/" + b.value);
