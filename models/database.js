@@ -13,6 +13,10 @@ Database.getAllFieldNames = function(table) {
     return mysql.query(getQuery("allFieldNames"), [table]);
 }
 
+Database.getUniqueFromTableByField = function(table, field) {
+    return mysql.query(getQuery("uniqueFromTableByField"), [field, table]);
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
@@ -24,6 +28,9 @@ function getQuery(type) {
             break;
         case "allFieldNames":
             query = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ?;";
+            break;
+        case "uniqueFromTableByField":
+            query = "SELECT DISTINCT ?? FROM ??";
             break;
     }
     return query;

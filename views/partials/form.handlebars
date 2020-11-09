@@ -28,6 +28,9 @@
             {{#ifCond this.COLUMN_KEY "MUL"}}
             <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
             <select id="add-villager" class="drop-down">
+            {{#each this.UNIQUE_VALUES}}
+                <option value={{this}}>{{this}}</option>
+            {{/each}}
             </select><br>
             {{/ifCond}}
 
