@@ -1,11 +1,21 @@
+<script src="../scripts/home.js"></script>
+
+<div class="home-page">
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 <h1 class="first-line">Nook Inc: Island Creator</h1>
 <br>
-<div class="cover-heading1"><button type="button" class="btn btn-light btn-lg btn-block">Create/Update/Delete My Island</button></div>
-<div class="cover-heading"><button type="button" class="btn btn-light btn-lg btn-block">View My Island</button></div>
-<div class="cover-heading"><button type="button" class="btn btn-light btn-lg btn-block">Create A Villager</button></div>
-<div class="cover-heading"><button type="button" class="btn btn-light btn-lg btn-block">Create A Personality</button></div>
-<div class="cover-heading"><button type="button" class="btn btn-light btn-lg btn-block">Create A Species</button></div>
-<div class="cover-heading"><button type="button" class="btn btn-light btn-lg btn-block">Create A Facility</button></div>
-
+<div class="button1" id="island"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#isla">Create An Island</a></div>
+<div class="button"><a href="/island/all" class="btn btn-light btn-lg btn-block">View Islands</a></div>
+<div class="button" id="villager"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#vill">Create A Villager</a></div>
+<div class="button"><a href="/villager/all" class="btn btn-light btn-lg btn-block">View Villagers</a></div>
+<div class="button" id="personality"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#person">Create A Personality</a></div>
+<div class="button" id="species"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#spec">Create A Species</a></div>
+<div class="button" id="facility"><a class="btn btn-light btn-lg btn-block" data-toggle="modal" data-target="#fac">Create A Facility</a></div>
 </div>
+</div>
+
+{{>add-modal species}}
+{{>add-modal villager}}
+{{>add-modal island}}
+{{>add-modal facility}}
+{{>add-modal personality}}

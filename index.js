@@ -3,9 +3,12 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const path = require("path");
 const bodyParser = require("body-parser");
+const db = require("./loaders/mysql.js")
+const hb = require("./loaders/helpers.js")
 
 // router imports
 const indexRouter = require("./routes/indexRouter");
+const { resolve } = require("path");
 
 // create new instance of express app and set port
 const app = express();
@@ -23,6 +26,9 @@ app.engine(
     defaultLayout: "main",
     layoutsDir: path.join(__dirname, "views/layouts"),
     partialsDir: path.join(__dirname, "views/partials"),
+    helpers: {
+      ifCond: hb.registerHelper
+    }
   })
 );
 app.set("view engine", "handlebars");
@@ -41,6 +47,14 @@ app.use(logger);
     App Routing -  connect routers the app
 */
 app.use("/", indexRouter);
+
+db.connection()
+.then(function() {
+    console.log("Database connection established..");
+    resolve();
+})
+.catch(function(err) {console.log(err)})
+
 
 // set function to respond to any unhandled GET request
 app.get("*", (req, res, next) => {

@@ -5,7 +5,6 @@ a:hover {
   color: #fff;
 }
 
-
 /*
  * Base structure
  */
@@ -17,8 +16,8 @@ body {
 }
 
 body {
-  display: -ms-flexbox;
-  display: flex;
+  /*display: -ms-flexbox;
+  display: flex;*/
   color: #fff;
   background-image: url("TomNook.jpg");
   background-repeat: no-repeat, repeat;
@@ -33,7 +32,7 @@ body {
 }
 
 .button1 {
-    padding-top: 60px;
+    padding-top: 40px;
     padding-bottom: 15px;
     size: 100px;
     margin-right: 660px;
@@ -41,7 +40,7 @@ body {
     opacity: 70%
 }
 
-.button2 {
+.button {
     padding-bottom: 15px;
     size: 100px;
     margin-right: 660px;
@@ -52,8 +51,6 @@ body {
 /*
  * Header
  */
-
-
 @media (min-width: 48em) {
 
   .nav-masthead {
@@ -68,3 +65,9 @@ body {
     padding-top: 5px;
     opacity: 90%;
 }
+
+.modal-text {
+  color: black;
+  background-color: white; 
+}
+
