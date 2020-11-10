@@ -50,7 +50,8 @@ function getQuery(type) {
         case "allVillagers":
             query = "SELECT villager.name as name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, island_villager.islandID as islandID, \
                     villager.hobby, species.name AS species, personality.name AS personality, villager.image_url AS image_url, \
-                    personality.description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities \
+                    personality.description AS description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, \
+                    TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities AS activities \
                     FROM villager \
                     JOIN species ON villager.species = species.speciesID \
                     JOIN personality ON villager.personality = personality.personalityID \
@@ -60,7 +61,8 @@ function getQuery(type) {
         case "allVillagersByIslandID":
             query = "SELECT villager.name as name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, island_villager.islandID as islandID, \
                     villager.hobby, species.name AS species, personality.name AS personality, villager.image_url AS image_url, \
-                    personality.description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities \
+                    personality.description AS description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, \
+                    TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities AS activites \
                     FROM villager \
                     JOIN species ON villager.species = species.speciesID \
                     JOIN personality ON villager.personality = personality.personalityID \

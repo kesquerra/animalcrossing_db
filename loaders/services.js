@@ -47,12 +47,16 @@ Services.getVillagerShop = function(island) {
             .then(function(island_villagers) {
                 Database.getVillagersNotOnIslandID(island)
                 .then(function(avail_villagers) {
-                    resolve({
-                        island,
-                        island_vals,
-                        island_villagers,
-                        avail_villagers
-                    });
+                    Database.getAllFromTable("personality")
+                    .then(function(personalities) {
+                        resolve({
+                            personalities,
+                            island,
+                            island_vals,
+                            island_villagers,
+                            avail_villagers
+                        });
+                    })
                 })
             })
         })
