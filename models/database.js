@@ -6,7 +6,7 @@ Database.getAllFromTable = function(table) {
 }
 
 Database.getAllFromTableByField = function(table, field, value) {
-    return mysql.query(getQuery("allFromTableByField"), [table, field, '%' + value + '%']);
+    return mysql.query(getQuery("allFromTableByField"), [table, field, value]);
 }
 
 Database.getAllFieldNames = function(table) {
@@ -20,6 +20,18 @@ Database.getUniqueFromTableByField = function(table, field, field_label) {
     return mysql.query(getQuery("uniqueFromTableByField"), [table_field, label, table, field, table_field, field_id]);
 }
 
+Database.getAllVillagers = function() {
+    return mysql.query(getQuery("allVillagers"));
+}
+
+Database.getAllVillagersByIslandID = function (islandID) {
+    return mysql.query(getQuery("allVillagersByIslandID"), [islandID]);
+}
+
+Database.getVillagersNotOnIslandID = function(islandID) {
+    return mysql.query(getQuery("allVillagersNotOnIslandID"), [islandID]);
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
@@ -27,7 +39,7 @@ function getQuery(type) {
             query = "SELECT * FROM ??;";
             break;
         case "allFromTableByField":
-            query = "SELECT * FROM ?? WHERE ?? LIKE ?;";
+            query = "SELECT * FROM ?? WHERE ?? = ?;";
             break;
         case "allFieldNames":
             query = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ?;";
@@ -35,6 +47,37 @@ function getQuery(type) {
         case "uniqueFromTableByField":
             query = "SELECT DISTINCT ??, ?? FROM ?? JOIN ?? ON ?? = ??";
             break;
+        case "allVillagers":
+            query = "SELECT villager.name as name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, island_villager.islandID as islandID, \
+                    villager.hobby, species.name AS species, personality.name AS personality, villager.image_url AS image_url, \
+                    personality.description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities \
+                    FROM villager \
+                    JOIN species ON villager.species = species.speciesID \
+                    JOIN personality ON villager.personality = personality.personalityID \
+                    LEFT JOIN island_villager ON villager.villagerID = island_villager.villagerID \
+                    ORDER BY villager.name ASC;";
+            break;
+        case "allVillagersByIslandID":
+            query = "SELECT villager.name as name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, island_villager.islandID as islandID, \
+                    villager.hobby, species.name AS species, personality.name AS personality, villager.image_url AS image_url, \
+                    personality.description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities \
+                    FROM villager \
+                    JOIN species ON villager.species = species.speciesID \
+                    JOIN personality ON villager.personality = personality.personalityID \
+                    JOIN island_villager ON villager.villagerID = island_villager.villagerID AND island_villager.islandID = ?\
+                    ORDER BY villager.name ASC;";
+            break;
+        case "allVillagersNotOnIslandID":
+            query = "SELECT villager.name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, \
+                    villager.hobby, species.name AS species, personality.name AS personality, villager.image_url AS image_url, \
+                    personality.description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities \
+                    FROM villager \
+                    JOIN species ON villager.species = species.speciesID AND villager.villagerID NOT IN \
+                    (SELECT villager.villagerID \
+                    FROM villager \
+                    JOIN island_villager ON villager.villagerID = island_villager.villagerID AND island_villager.islandID = ?) \
+                    JOIN personality ON villager.personality = personality.personalityID \
+                    ORDER BY villager.name ASC;"
     }
     return query;
 }
