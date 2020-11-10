@@ -1,3 +1,16 @@
+.island-input {
+  display: flex;
+  justify-content: center;
+}
+
+.island-dropdown{
+  width: 75%;
+}
+
+.island-btn{
+  width: 75%;
+}
+
 .carousel-wrapper {
   position: relative;
   width: 70%;

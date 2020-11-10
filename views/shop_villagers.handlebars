@@ -1,18 +1,22 @@
 <link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
 <script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
 
-<div class="d-flex p-2">
+<div class="island-input">
     <form class="form-inline" action="/shop/island_change" method="POST">
-        <select name="islandID" class="form-control" id="island-values">
+        <div class="island-dropdown">
+        <select name="islandID" class="form-control form-control-md mr-3 w-75" id="island-values">
                 {{#each island_vals}}
                     <option value="{{this.islandID}}">{{this.name}}</option>
                 {{/each}}
         </select>
-        <button type="submit">go!</button>
+        </div>
+        <div class="island-btn">
+        <button class="btn btn-light btn-md btn-block input-group-btn" type="submit">go!</button>
+        </div>
     </form>
 </div>
 
-<h3>Available Villagers</h3>
+<h3>Future Neighbors!</h3>
 <div class="carousel-wrapper">
     <div class="carousel" data-flickity='{"pageDots": false, "wrapAround": true}'>
             {{#each avail_villagers}}
@@ -21,7 +25,7 @@
     </div>
 </div>
 
-<h3>Villagers Currently on Island</h3>
+<h3>Current Neighbors</h3>
 <div class="carousel-wrapper">
     <div class="carousel" data-flickity='{"pageDots": false, "contain": true, "cellAlign": "left"}'>
             {{#each island_villagers}}
