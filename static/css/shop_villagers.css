@@ -1,0 +1,45 @@
+.island-input {
+  display: flex;
+  justify-content: center;
+}
+
+.island-dropdown{
+  width: 75%;
+}
+
+.island-btn{
+  width: 75%;
+}
+
+.carousel-wrapper {
+  position: relative;
+  width: 70%;
+  height: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFFFFF;
+  background-image: linear-gradient(#FFFFFF 50%, #FFFFFF 50%, #F0F3FC 50%);
+  box-shadow: 0px 12px 39px -19px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+.carousel-wrapper .carousel {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: auto;
+}
+.carousel-wrapper .carousel .carousel-cell {
+  padding: 10px;
+  background-color: #FFFFFF;
+  width: 20%;
+  height: auto;
+  min-width: 120px;
+  margin: 0 20px;
+  transition: transform 500ms ease;
+}
+
+.h3 {
+    text-align: center;
+}

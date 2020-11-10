@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
+<script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
+
+<div class="island-input">
+    <form class="form-inline" action="/shop/island_change" method="POST">
+        <div class="island-dropdown">
+        <select name="islandID" class="form-control form-control-md mr-3 w-75" id="island-values">
+                {{#each island_vals}}
+                    <option value="{{this.islandID}}">{{this.name}}</option>
+                {{/each}}
+        </select>
+        </div>
+        <div class="island-btn">
+        <button class="btn btn-light btn-md btn-block input-group-btn" type="submit">go!</button>
+        </div>
+    </form>
+</div>
+
+<h3>Future Neighbors!</h3>
+<div class="carousel-wrapper">
+    <div class="carousel" data-flickity='{"pageDots": false, "wrapAround": true}'>
+            {{#each avail_villagers}}
+                {{>villager_card this}}
+            {{/each}}
+    </div>
+</div>
+
+<h3>Current Neighbors</h3>
+<div class="carousel-wrapper">
+    <div class="carousel" data-flickity='{"pageDots": false, "contain": true, "cellAlign": "left"}'>
+            {{#each island_villagers}}
+                {{>villager_card this}}
+            {{/each}}
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip({
+        placement : 'left'
+    });
+});
+</script>

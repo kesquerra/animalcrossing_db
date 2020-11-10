@@ -79,7 +79,7 @@ router.get("/:table/all", (req, res, next) => {
   .then(function(form_data) {
     Database.getAllFromTable(req.params.table)
     .then(function(result) {
-        res.render(req.params.table, {
+        res.render("table_view", {
         css: ["table.css"],
         id: req.params.table,
         table_name: req.params.table,
@@ -95,9 +95,36 @@ router.get("/:table/all", (req, res, next) => {
   })
 })
 
+router.get("/shop", (req, res, next) => {
+  island = 1; //change to user default island
+  Services.getVillagerShop(island)
+  .then(function(data) {
+    //console.log(data);
+    res.render("shop", data);
+  })
+  .catch(function(err) {
+    next(err);
+  }) 
+  
+})
+
 router.post("/search", (req, res, next) => {
   var b = req.body;
   res.redirect("/search/" + b.table + "/" + b.field + "/" + b.value);
 })
 
+<<<<<<< HEAD
+=======
+router.post("/shop/island_change", (req, res, next) => {
+  Services.getVillagerShop(req.body.islandID)
+  .then(function(data) {
+    res.render("shop", data);
+  })
+  .catch(function(err) {
+    next(err);
+  }) 
+})
+
+
+>>>>>>> 6d1e97849a7c62fc84a16c7eda8d1abcb8b38245
 module.exports = router;
