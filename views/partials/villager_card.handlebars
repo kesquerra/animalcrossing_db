@@ -34,6 +34,10 @@
         <path d="M7 6.5c0 .828-.448 0-1 0s-1 .828-1 0S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 0-1 0s-1 .828-1 0S9.448 5 10 5s1 .672 1 1.5z"/>
         </svg> {{this.personality}}</li>
     </ul>
-    <div class="card-body"><button type="button" class="btn btn-success btn-sm btn-rounded">Add <i class="fas fa-plus-circle" aria-hidden="true"></i></button></div>
+    {{#if this.islandID}}
+      <div class="card-body"><button type="button" class="btn btn-danger btn-sm btn-rounded">Remove <i class="fas fa-minus-circle" aria-hidden="true"></i></button></div>
+    {{else}}
+      <div class="card-body"><button type="button" class="btn btn-success btn-sm btn-rounded">Add <i class="fas fa-plus-circle" aria-hidden="true"></i></button></div>
+    {{/if}}
   </div>
 </div>

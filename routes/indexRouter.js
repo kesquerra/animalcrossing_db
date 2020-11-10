@@ -53,7 +53,7 @@ router.get("/:table/all", (req, res, next) => {
   })
 })
 
-router.get("/villager_shop", (req, res, next) => {
+router.get("/shop", (req, res, next) => {
   island = 1; //change to user default island
   Services.getVillagerShop(island)
   .then(function(data) {
@@ -71,7 +71,7 @@ router.post("/search", (req, res, next) => {
   res.redirect("/search/" + b.table + "/" + b.field + "/" + b.value);
 })
 
-router.post("/villager_shop/island_change", (req, res, next) => {
+router.post("/shop/island_change", (req, res, next) => {
   Services.getVillagerShop(req.body.islandID)
   .then(function(data) {
     //console.log(data);
