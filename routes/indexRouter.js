@@ -38,7 +38,7 @@ router.get("/:table/all", (req, res, next) => {
   .then(function(form_data) {
     Database.getAllFromTable(req.params.table)
     .then(function(result) {
-        res.render(req.params.table, {
+        res.render("table_view", {
         css: ["table.css"],
         table_name: req.params.table,
         record: result,
@@ -58,7 +58,7 @@ router.get("/shop", (req, res, next) => {
   Services.getVillagerShop(island)
   .then(function(data) {
     //console.log(data);
-    res.render("shop_villagers", data);
+    res.render("shop", data);
   })
   .catch(function(err) {
     next(err);
@@ -74,8 +74,7 @@ router.post("/search", (req, res, next) => {
 router.post("/shop/island_change", (req, res, next) => {
   Services.getVillagerShop(req.body.islandID)
   .then(function(data) {
-    //console.log(data);
-    res.render("shop_villagers", data);
+    res.render("shop", data);
   })
   .catch(function(err) {
     next(err);
