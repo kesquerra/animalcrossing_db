@@ -53,12 +53,12 @@ router.get("/:table/all", (req, res, next) => {
   })
 })
 
-router.get("/shop_villagers", (req, res, next) => {
-  Database.getAllVillagers()
-  .then(function(villagers) {
-    res.render("shop_villagers", {
-      villagers
-    });
+router.get("/villager_shop", (req, res, next) => {
+  island = 1; //change to user default island
+  Services.getVillagerShop(island)
+  .then(function(data) {
+    //console.log(data);
+    res.render("shop_villagers", data);
   })
   .catch(function(err) {
     next(err);
@@ -69,6 +69,17 @@ router.get("/shop_villagers", (req, res, next) => {
 router.post("/search", (req, res, next) => {
   var b = req.body;
   res.redirect("/search/" + b.table + "/" + b.field + "/" + b.value);
+})
+
+router.post("/villager_shop/island_change", (req, res, next) => {
+  Services.getVillagerShop(req.body.islandID)
+  .then(function(data) {
+    //console.log(data);
+    res.render("shop_villagers", data);
+  })
+  .catch(function(err) {
+    next(err);
+  }) 
 })
 
 

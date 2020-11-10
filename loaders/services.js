@@ -39,4 +39,24 @@ Services.getFormData = function(table, field_label) {
     })
 };
 
+Services.getVillagerShop = function(island) {
+    return new Promise(function(resolve, reject) {
+        Database.getAllFromTable("island")
+        .then(function(island_vals) {
+            Database.getAllVillagersByIslandID(island)
+            .then(function(island_villagers) {
+                Database.getVillagersNotOnIslandID(island)
+                .then(function(avail_villagers) {
+                    resolve({
+                        island,
+                        island_vals,
+                        island_villagers,
+                        avail_villagers
+                    });
+                })
+            })
+        })
+    })
+}
+
 module.exports = Services;
