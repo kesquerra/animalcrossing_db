@@ -2,7 +2,7 @@
 <script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
 
 <div class="d-flex p-2">
-    <form class="form-inline" action="/villager_shop/island_change" method="POST">
+    <form class="form-inline" action="/shop/island_change" method="POST">
         <select name="islandID" class="form-control" id="island-values">
                 {{#each island_vals}}
                     <option value="{{this.islandID}}">{{this.name}}</option>
