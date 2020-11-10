@@ -113,8 +113,6 @@ router.post("/search", (req, res, next) => {
   res.redirect("/search/" + b.table + "/" + b.field + "/" + b.value);
 })
 
-<<<<<<< HEAD
-=======
 router.post("/shop/island_change", (req, res, next) => {
   Services.getVillagerShop(req.body.islandID)
   .then(function(data) {
@@ -125,6 +123,4 @@ router.post("/shop/island_change", (req, res, next) => {
   }) 
 })
 
-
->>>>>>> 6d1e97849a7c62fc84a16c7eda8d1abcb8b38245
 module.exports = router;
