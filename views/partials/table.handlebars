@@ -4,7 +4,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                {{#each column_name}}
+                {{#each this.column_name}}
                     <th>{{this.COLUMN_NAME}}</th>
                 {{/each}}
                     <th>update</th>
@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            {{#each record}}
+            {{#each this.record}}
                 <tr>
                     {{#each ../column_name}}
                         <td>{{lookup .. this.COLUMN_NAME}}</td>

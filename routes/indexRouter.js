@@ -60,11 +60,10 @@ router.get("/search/:table/:field/:value", (req, res, next) => {
     .then(function(result) {
       res.render(req.params.table, {
         css: ["table.css"],
-        id: req.params.table,
         table_name: req.params.table,
         record: result,
         column_name: form_data,
-        title: {add: "Create A " + req.params.table, update: "Update " + req.params.table}, 
+        title: {add: "Create " + req.params.table, update: "Update " + req.params.table}, 
         form_action: ["/" + req.params.table + "/create"]
     })
   })
@@ -81,12 +80,14 @@ router.get("/:table/all", (req, res, next) => {
     .then(function(result) {
         res.render("table_view", {
         css: ["table.css"],
-        id: req.params.table,
-        table_name: req.params.table,
-        record: result,
-        column_name: form_data,
-        title: {add: "Create A " + req.params.table, update: "Update " + req.params.table}, 
-        form_action: ["/" + req.params.table + "/create"]
+        entity: {
+          id: "add",
+          table_name: req.params.table,
+          record: result,
+          column_name: form_data,
+          title: {add: "Create " + req.params.table, update: "Update " + req.params.table}, 
+          form_action: ["/" + req.params.table + "/create"]
+        }
         })
     })
   })
@@ -122,5 +123,6 @@ router.post("/shop/island_change", (req, res, next) => {
     next(err);
   }) 
 })
+
 
 module.exports = router;
