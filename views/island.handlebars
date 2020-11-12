@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
+<script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
+
+<h3>Neighboring Islands!</h3>
+<div class="carousel-wrapper">
+    <div class="carousel" data-flickity='{"pageDots": false, "wrapAround": true}'>
+            {{#each island}}
+                {{>island_card this}}
+            {{/each}}
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip({
+        placement : 'left'
+    });
+});
+</script>

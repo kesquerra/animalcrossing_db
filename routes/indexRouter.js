@@ -109,6 +109,11 @@ router.get("/shop", (req, res, next) => {
   
 })
 
+router.get("/all_islands", (req, res, next) => {
+  res.render("island", 
+    {css: ["shop_villagers.css"]});
+})
+
 router.post("/search", (req, res, next) => {
   var b = req.body;
   res.redirect("/search/" + b.table + "/" + b.field + "/" + b.value);

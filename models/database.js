@@ -24,6 +24,10 @@ Database.getAllVillagers = function() {
     return mysql.query(getQuery("allVillagers"));
 }
 
+Database.getAllIslands = function() {
+    return mysql.query(getQuery("allislands"));
+}
+
 Database.getAllVillagersByIslandID = function (islandID) {
     return mysql.query(getQuery("allVillagersByIslandID"), [islandID]);
 }
@@ -49,7 +53,7 @@ function getQuery(type) {
             break;
         case "allVillagers":
             query = "SELECT villager.name as name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, island_villager.islandID as islandID, \
-                    villager.hobby, species.name AS species, personality.name AS personality, villager.image_url AS image_url, \
+                    villager.hobby as hobby, species.name AS species, personality.name AS personality, villager.image_url AS image_url, \
                     personality.description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities \
                     FROM villager \
                     JOIN species ON villager.species = species.speciesID \
@@ -78,6 +82,10 @@ function getQuery(type) {
                     JOIN island_villager ON villager.villagerID = island_villager.villagerID AND island_villager.islandID = ?) \
                     JOIN personality ON villager.personality = personality.personalityID \
                     ORDER BY villager.name ASC;"
+        //     break;
+        // case "allIslands":
+        //     query = "SELECT island.name, villager.name AS villager FROM island \
+        //             JOIN "
     }
     return query;
 }
