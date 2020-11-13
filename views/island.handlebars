@@ -1,9 +1,10 @@
 <link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
 <script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 
 <h3>Neighboring Islands!</h3>
 <div class="carousel-wrapper">
-    <div class="carousel" data-flickity='{"pageDots": false, "wrapAround": true}'>
+    <div class="carousel" data-flickity='{"pageDots": false, "contain": true, "cellAlign": "left", "freeScroll": true}'>
             {{#each data}}
                 {{>island_card this}}
             {{/each}}
