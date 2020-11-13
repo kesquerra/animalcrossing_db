@@ -1,4 +1,5 @@
 var Services = {};
+const { getAllVillagersByIslandID } = require("../models/database.js");
 var Database = require("../models/database.js");
 
 Services.getFormData = function(table, field_label) {
@@ -55,6 +56,34 @@ Services.getVillagerShop = function(island) {
                     });
                 })
             })
+        })
+    })
+}
+
+Services.getIslands = function() {
+    return new Promise(function(resolve, reject) {
+        Database.getAllIslands()
+        .then(async function(names) {
+            var island_data = [];
+            for (name of names) {
+                const villagers = await Database.getAllVillagersByIslandID(name.islandID);
+                var villager_names = [];
+                villagers.forEach((name) => {                        
+                    villager_names.push(name.name)
+                });
+                const facilities = await Database.getAllFacilitiesByIslandID(name.islandID);
+                var facility_names = [];
+                facilities.forEach((name) => {
+                    facility_names.push(name.name)
+                });
+                island_data.push({
+                    "name": name.name,
+                    "islandID": name.islandID,
+                    "villagers": villager_names,
+                    "facilities": facility_names
+                });
+            };
+            resolve(island_data);
         })
     })
 }

@@ -1,0 +1,24 @@
+<div class="carousel-cell">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">       
+      <h5 class="card-title" data-toggle="tooltip" title="Villager Name">{{this.name}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" data-toggle="tooltip" title="Villagers">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path fill-rule="evenodd" d="M12.331 9.5a1 1 0 0 1 0 1A4.998 4.998 0 0 1 8 13a4.998 4.998 0 0 1-4.33-2.5A1 1 0 0 1 4.535 9h6.93a1 1 0 0 1 .866.5z"/>
+        <path d="M7 6.5c0 .828-.448 0-1 0s-1 .828-1 0S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 0-1 0s-1 .828-1 0S9.448 5 10 5s1 .672 1 1.5z"/>
+        </svg>
+        {{#each villagers}}
+            {{this}}<br> 
+        {{/each}}</li>
+      <li class="list-group-item" data-toggle="tooltip" title="Facilities">   
+        <i class="fa fa-home" aria-hidden="true"></i>
+        <path fill-rule="evenodd" d="M14.53 10.53a7 7 0 0 1-9.058-9.058A7.003 7.003 0 0 0 8 15a7.002 7.002 0 0 0 6.53-4.47z"/></svg>
+        {{#each facilities}}
+            {{this}}<br>
+        {{/each}}</li>
+      <div class="card-body"><button type="button" class="btn btn-danger btn-sm btn-rounded">Delete <i class="fas fa-minus-circle" aria-hidden="true"></i></button></div>
+  </div>
+</div>
