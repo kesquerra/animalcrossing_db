@@ -112,7 +112,7 @@ router.get("/shop", (req, res, next) => {
 router.get("/all_islands", (req, res, next) => {
   Services.getIslands()
   .then(function(data) {
-    res.render("island", data);
+    res.render("island", {data});
   })
   .catch(function(err) {
     next(err);
