@@ -25,7 +25,7 @@ Database.getAllVillagers = function() {
 }
 
 Database.getAllIslands = function() {
-    return mysql.query(getQuery("allislands"));
+    return mysql.query(getQuery("allIslands"));
 }
 
 Database.getAllVillagersByIslandID = function (islandID) {
@@ -35,6 +35,13 @@ Database.getAllVillagersByIslandID = function (islandID) {
 Database.getVillagersNotOnIslandID = function(islandID) {
     return mysql.query(getQuery("allVillagersNotOnIslandID"), [islandID]);
 }
+
+Database.getAllFacilitiesByIslandID = function(islandID) {
+    return mysql.query(getQuery("allFacilitiesByIslandID"), [islandID]);
+}
+
+
+
 
 function getQuery(type) {
     var query = "";
@@ -82,10 +89,15 @@ function getQuery(type) {
                     JOIN island_villager ON villager.villagerID = island_villager.villagerID AND island_villager.islandID = ?) \
                     JOIN personality ON villager.personality = personality.personalityID \
                     ORDER BY villager.name ASC;"
-        //     break;
-        // case "allIslands":
-        //     query = "SELECT island.name, villager.name AS villager FROM island \
-        //             JOIN "
+            break;
+        case "allFacilitiesByIslandID":
+            query = "SELECT facility.name as name FROM facility \
+                    LEFT JOIN island_facility on island_facility.facilityID = facility.facilityID AND island_facility.islandID = ? \
+                    ORDER BY facility.name ASC;"
+            break;
+        case "allIslands":
+            query = "SELECT island.islandID, island.name FROM island \
+                    ORDER BY island.islandID ASC;"
     }
     return query;
 }
