@@ -34,14 +34,17 @@
             </select><br>
             {{/ifCond}}
 
-            
         {{/each}}
 
-        {{#each box_input}}
-            <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">{{this}}</label>
-            <input type="checkbox" id="cranky" name="cranky" value="cranky">
-            <label for="cranky" class="modal-text"> Cranky </label>
-        {{/each}}
+        {{#ifCond table_name "personality"}}
+            <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">Compatible with</label><br>
+            <div class="checkboxes">
+            {{#each record}}
+                <input type="checkbox" id="checkbox" name="checkbox" value="{{this.name}}">
+                <label for="cranky" class="modal-text">{{this.name}}</label>
+            {{/each}}
+            </div>
+        {{/ifCond}}
         <br><br><input type="submit"></form>
     </div>
 </div>

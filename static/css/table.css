@@ -25,3 +25,7 @@
     transform: translate(-50%, -50%);
     opacity: 70%;
 }
+
+#checkbox {
+    margin: 0px 0px 0px 20px;
+  }
