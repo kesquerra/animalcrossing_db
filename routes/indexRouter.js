@@ -18,33 +18,38 @@ router.get("/", (req, res, next) => {
         .then(function(form_data4) {
           Services.getFormData("facility", "home")
           .then(function(form_data5) {
-            res.status(200).render("home", {
-              css: ["home.css"],
-              villager: {
-                id: "vill",
-                column_name: form_data,
-                title: {add: "Create A Villager"},
-                form_action: ["/" + req.params.table + "/create"]},
-              island: {
-                id: "isla",
-                column_name: form_data2,
-                title: {add: "Create An Island"},
-                form_action: ["/" + req.params.table + "/create"]}, 
-              personality: {
-                id: "person",
-                column_name: form_data3,
-                title: {add: "Create A Personality"},
-                form_action: ["/" + req.params.table + "/create"]},
-              species: {
-                id: "spec",
-                column_name: form_data4,
-                title: {add: "Create A Species"},
-                form_action: ["/" + req.params.table + "/create"]}, 
-              facility: {
-                id: "fac",
-                column_name: form_data5,
-                title: {add: "Create A Facility"},
-                form_action: ["/" + req.params.table + "/create"]}
+            Database.getAllFromTable("personality")
+            .then(function(person_data) {
+              res.status(200).render("home", {
+                css: ["home.css"],
+                villager: {
+                  id: "vill",
+                  column_name: form_data,
+                  title: {add: "Create A Villager"},
+                  form_action: ["/" + req.params.table + "/create"]},
+                island: {
+                  id: "isla",
+                  column_name: form_data2,
+                  title: {add: "Create An Island"},
+                  form_action: ["/" + req.params.table + "/create"]}, 
+                personality: {
+                  id: "person",
+                  column_name: form_data3,
+                  table_name: "personality",
+                  title: {add: "Create A Personality"},
+                  form_action: ["/" + req.params.table + "/create"],
+                  record: person_data},
+                species: {
+                  id: "spec",
+                  column_name: form_data4,
+                  title: {add: "Create A Species"},
+                  form_action: ["/" + req.params.table + "/create"]}, 
+                facility: {
+                  id: "fac",
+                  column_name: form_data5,
+                  title: {add: "Create A Facility"},
+                  form_action: ["/" + req.params.table + "/create"]}
+              })
             })
           })
         })
