@@ -14,11 +14,27 @@ Database.getAllFieldNames = function(table) {
 }
 
 Database.getUniqueFromTableByField = function(table, field, field_label) {
-    var table_field = table + "." + field;
-    var label = field + "." + field_label;
-    var field_id = field + "." + field + "ID";
-    return mysql.query(getQuery("uniqueFromTableByField"), [table_field, label, table, field, table_field, field_id]);
+    comp_tables = ["compatibility", "island_facility", "island_villager"]
+    if (comp_tables.includes(table)) {
+        field_id = table + "." + field
+        if (table == "compatibility") {
+            new_table = "personality"
+            table_field = new_table + ".personalityID"
+        } else {
+            new_table = field.substring(0, field.length - 2)
+            table_field = new_table + "." + field
+        }
+        label = new_table + "." + field_label
+        field = new_table //island
+        return mysql.query(getQuery("uniqueFromTable"), [table_field, label, table, field]);
+    } else {
+        var table_field = table + "." + field;
+        var label = field + "." + field_label;
+        var field_id = field + "." + field + "ID";
+        return mysql.query(getQuery("uniqueFromTableByField"), [table_field, label, table, field, table_field, field_id]);
+    }
 }
+
 
 Database.getAllVillagers = function() {
     return mysql.query(getQuery("allVillagers"));
@@ -57,6 +73,9 @@ function getQuery(type) {
             break;
         case "uniqueFromTableByField":
             query = "SELECT DISTINCT ??, ?? FROM ?? JOIN ?? ON ?? = ??";
+            break;
+        case "uniqueFromTable":
+            query = "SELECT DISTINCT ??, ?? FROM ?? JOIN ??";
             break;
         case "allVillagers":
             query = "SELECT villager.name as name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, island_villager.islandID as islandID, \

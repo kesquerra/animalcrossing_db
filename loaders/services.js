@@ -8,7 +8,6 @@ Services.getFormData = function(table, field_label) {
         .then(function(result) {
             var form_data = [];
             result.forEach(async (col) => {
-                //console.log(col);
                 if (col.COLUMN_KEY == 'MUL') {
                     const uniques = await Database.getUniqueFromTableByField(table, col.COLUMN_NAME, field_label);
                     var unique_vals = [];
