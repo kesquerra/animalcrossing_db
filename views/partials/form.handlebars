@@ -2,32 +2,45 @@
 <div class="modal-body mx-3">
     <div class="md-form mb-5">
         <i class="fas fa-user prefix black-text"></i>
-        <form action={{form_action}} method="POST">
+        <form action="/{{table_name}}/create" method="POST">
         {{#each column_name}}
         
             {{#ifCond this.DATA_TYPE "text"}}
             <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
-            <input type="text" class="form-control validate"><br>
+            <input name="{{this.COLUMN_NAME}}" type="text" class="form-control validate" required><br>
+            {{/ifCond}}
+
+            {{#ifCond this.DATA_TYPE "tinytext"}}
+            <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
+            <input name="{{this.COLUMN_NAME}}" type="text" class="form-control validate" required><br>
             {{/ifCond}}
 
             {{#ifCond this.DATA_TYPE "varchar"}}
             <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
-            <input type="text" class="form-control validate"><br>
+            <input name="{{this.COLUMN_NAME}}" type="text" class="form-control validate" required><br>
+            {{/ifCond}}
+
+            {{#ifCond this.DATA_TYPE "tinyint"}}
+            <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
+            <select name="{{this.COLUMN_NAME}}" class="drop-down">
+                <option value='1'>True</option>
+                <option value='0'>False</option>
+            </select>
             {{/ifCond}}
 
             {{#ifCond this.DATA_TYPE "date"}}
-            <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
-            <input type="date" class="form-control validate"><br>
+            <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
+            <input name="{{this.COLUMN_NAME}}"type="date" class="form-control validate" required><br>
             {{/ifCond}}
 
             {{#ifCond this.DATA_TYPE "time"}}
             <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
-            <input type="time" class="form-control validate"><br>
+            <input name="{{this.COLUMN_NAME}}" type="time" class="form-control validate" required><br>
             {{/ifCond}}
 
             {{#ifCond this.COLUMN_KEY "MUL"}}
             <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
-            <select id="add-villager" class="drop-down">
+            <select name="{{this.COLUMN_NAME}}" id="add-villager" class="drop-down">
             {{#each this.UNIQUE_VALUES}}
                 <option value={{this.value}}>{{this.label}}</option>
             {{/each}}
@@ -40,8 +53,8 @@
             <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">Compatible with</label><br>
             <div class="checkboxes">
             {{#each record}}
-                <input type="checkbox" id="checkbox" name="checkbox" value="{{this.name}}">
-                <label for="cranky" class="modal-text">{{this.name}}</label>
+                <input type="checkbox" id="checkbox" name="{{this.name}}" value="{{this.personalityID}}">
+                <label for="{{this.name}}" class="modal-text">{{this.name}}</label>
             {{/each}}
             </div>
         {{/ifCond}}

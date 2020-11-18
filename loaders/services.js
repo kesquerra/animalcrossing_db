@@ -8,14 +8,17 @@ Services.getFormData = function(table, field_label) {
         .then(function(result) {
             var form_data = [];
             result.forEach(async (col) => {
-                //console.log(col);
                 if (col.COLUMN_KEY == 'MUL') {
                     const uniques = await Database.getUniqueFromTableByField(table, col.COLUMN_NAME, field_label);
                     var unique_vals = [];
                     uniques.forEach((val) => {
-                        if (val[col.COLUMN_NAME] != 'null') {
+                        col_name = col.COLUMN_NAME;
+                        if (table == "compatibility") {
+                            col_name = "personalityID";
+                        }
+                        if (val[col_name] != 'null') {
                             unique_vals.push({
-                                "value": val[col.COLUMN_NAME],
+                                "value": val[col_name],
                                 "label": val[field_label]
                             })
                         };
@@ -48,12 +51,16 @@ Services.getVillagerShop = function(island) {
             .then(function(island_villagers) {
                 Database.getVillagersNotOnIslandID(island)
                 .then(function(avail_villagers) {
-                    resolve({
-                        island,
-                        island_vals,
-                        island_villagers,
-                        avail_villagers
-                    });
+                    Database.getAllFromTable("personality")
+                    .then(function(personalities) {
+                        resolve({
+                            personalities,
+                            island,
+                            island_vals,
+                            island_villagers,
+                            avail_villagers
+                        });
+                    })
                 })
             })
         })
