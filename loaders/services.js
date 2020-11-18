@@ -48,19 +48,39 @@ Services.getVillagerShop = function(island) {
         Database.getAllFromTable("island")
         .then(function(island_vals) {
             Database.getAllVillagersByIslandID(island)
-            .then(function(island_villagers) {
+            .then(function(current) {
                 Database.getVillagersNotOnIslandID(island)
-                .then(function(avail_villagers) {
+                .then(function(available) {
                     Database.getAllFromTable("personality")
                     .then(function(personalities) {
                         resolve({
                             personalities,
                             island,
                             island_vals,
-                            island_villagers,
-                            avail_villagers
+                            current,
+                            available
                         });
                     })
+                })
+            })
+        })
+    })
+}
+
+Services.getFacilityShop = function(island) {
+    return new Promise(function(resolve, reject) {
+        Database.getAllFromTable("island")
+        .then(function(island_vals) {
+            Database.getAllFacilitiesByIslandID(island)
+            .then(function(current) {
+                Database.getFacilitiesNotOnIslandID(island)
+                .then(function(available) {
+                    resolve({
+                        island,
+                        island_vals,
+                        current,
+                        available
+                    });
                 })
             })
         })

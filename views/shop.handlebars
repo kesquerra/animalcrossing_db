@@ -2,10 +2,10 @@
 <script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
 
 <div class="island-input">
-    <form class="form-inline" action="/shop/island_change" method="POST">
+    <form class="form-inline" action="{{url}}" method="POST">
         <div class="island-dropdown">
         <select name="islandID" class="form-control form-control-md mr-3 w-75" id="island-values">
-                {{#each island_vals}}
+                {{#each data.island_vals}}
                     <option value="{{this.islandID}}">{{this.name}}</option>
                 {{/each}}
         </select>
@@ -16,25 +16,37 @@
     </form>
 </div>
 
-<h3>Future Neighbors!</h3>
+<h3>{{title.future}}</h3>
 <div class="carousel-wrapper">
     <div class="carousel" data-flickity='{"pageDots": false, "wrapAround": true}'>
-            {{#each avail_villagers}}
+        {{#if data_name}}
+            {{#each data.available}}
+                {{>facility_card this}}
+            {{/each}}
+        {{else}}
+            {{#each data.available}}
                 {{>villager_card this}}
             {{/each}}
+        {{/if}}
     </div>
 </div>
-
-<h3>Current Neighbors</h3>
+<br>
+<h3>{{title.current}}</h3>
 <div class="carousel-wrapper">
     <div class="carousel" data-flickity='{"pageDots": false, "contain": true, "cellAlign": "left", "freeScroll": true}'>
-            {{#each island_villagers}}
+        {{#if data_name}}
+            {{#each data.current}}
+                {{>facility_card this}}
+            {{/each}}
+        {{else}}
+            {{#each data.current}}
                 {{>villager_card this}}
             {{/each}}
+        {{/if}}
     </div>
 </div>
 
-{{#each personalities}}
+{{#each data.personalities}}
     {{>personality-modal this}}
 {{/each}}
 

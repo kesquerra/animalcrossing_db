@@ -1,0 +1,14 @@
+
+<div class="carousel-cell">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title" data-toggle="tooltip" title="Villager Name">{{this.name}}</h5>
+            <i class="fa fa-building fa-2x" aria-hidden="true"></i>
+        </div>
+        {{#if this.islandID}}
+            <div class="card-body"><button type="button" class="btn btn-danger btn-sm btn-rounded">Remove <i class="fas fa-minus-circle" aria-hidden="true"></i></button></div>
+        {{else}}
+            <div class="card-body"><button type="button" class="btn btn-success btn-sm btn-rounded">Add <i class="fas fa-plus-circle" aria-hidden="true"></i></button></div>
+        {{/if}}
+    </div>
+</div>
