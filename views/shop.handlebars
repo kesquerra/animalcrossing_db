@@ -27,12 +27,16 @@
 
 <h3>Current Neighbors</h3>
 <div class="carousel-wrapper">
-    <div class="carousel" data-flickity='{"pageDots": false, "contain": true, "cellAlign": "left"}'>
+    <div class="carousel" data-flickity='{"pageDots": false, "contain": true, "cellAlign": "left", "freeScroll": true}'>
             {{#each island_villagers}}
                 {{>villager_card this}}
             {{/each}}
     </div>
 </div>
+
+{{#each personalities}}
+    {{>personality-modal this}}
+{{/each}}
 
 <script>
 $(document).ready(function(){
