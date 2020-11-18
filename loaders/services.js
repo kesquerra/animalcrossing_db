@@ -12,9 +12,13 @@ Services.getFormData = function(table, field_label) {
                     const uniques = await Database.getUniqueFromTableByField(table, col.COLUMN_NAME, field_label);
                     var unique_vals = [];
                     uniques.forEach((val) => {
-                        if (val[col.COLUMN_NAME] != 'null') {
+                        col_name = col.COLUMN_NAME;
+                        if (table == "compatibility") {
+                            col_name = "personalityID";
+                        }
+                        if (val[col_name] != 'null') {
                             unique_vals.push({
-                                "value": val[col.COLUMN_NAME],
+                                "value": val[col_name],
                                 "label": val[field_label]
                             })
                         };

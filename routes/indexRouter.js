@@ -68,8 +68,7 @@ router.get("/search/:table/:field/:value", (req, res, next) => {
         table_name: req.params.table,
         record: result,
         column_name: form_data,
-        title: {add: "Create " + req.params.table, update: "Update " + req.params.table}, 
-        form_action: ["/" + req.params.table + "/create"]
+        title: {add: "Create " + req.params.table, update: "Update " + req.params.table}
     })
   })
   })
@@ -90,14 +89,20 @@ router.get("/:table/all", (req, res, next) => {
           table_name: req.params.table,
           record: result,
           column_name: form_data,
-          title: {add: "Create " + req.params.table, update: "Update " + req.params.table}, 
-          form_action: ["/" + req.params.table + "/create"]
+          title: {add: "Create " + req.params.table, update: "Update " + req.params.table}
         }
         })
     })
   })
   .catch(function(err) {
     next(err);
+  })
+})
+
+router.post("/:table/create", (req, res, next) => {
+  Database.addByTable(req.params.table, req.body)
+  .then(function() {
+    res.redirect("/" + req.params.table + "/all");
   })
 })
 

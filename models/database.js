@@ -57,6 +57,28 @@ Database.getAllFacilitiesByIslandID = function(islandID) {
 }
 
 
+//TODO: personality form compatibility?
+Database.addByTable = function(table, record) {
+    keys = Object.keys(record)
+    query_values = " ("
+    query_fields = " ("
+    keys.forEach(function(key, idx, array) {
+        query_fields += key
+        query_values += "'"
+        query_values += record[key]
+        query_values += "'"
+        if (idx == array.length -1) {
+            query_fields += ")"
+            query_values += ")"
+        } else {
+            query_fields += ", "
+            query_values += ", "
+        }
+    });
+    return mysql.query("INSERT INTO " + table + query_fields + " VALUES" + query_values + ";");
+}
+
+
 
 
 function getQuery(type) {
@@ -118,6 +140,7 @@ function getQuery(type) {
         case "allIslands":
             query = "SELECT island.islandID, island.name FROM island \
                     ORDER BY island.islandID ASC;"
+            break;
     }
     return query;
 }
