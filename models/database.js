@@ -141,7 +141,7 @@ function getQuery(type) {
             break;
         case "allFacilitiesNotOnIslandID":
             query = "SELECT facility.name as name FROM facility \
-                    JOIN island_facility on island_facility.facilityID = facility.facilityID AND island_facility.islandID NOT IN \
+                    JOIN island_facility on island_facility.facilityID = facility.facilityID AND island_facility.facilityID NOT IN \
                     (SELECT facility.facilityID FROM facility \
                         JOIN island_facility ON facility.facilityID = island_facility.facilityID AND island_facility.islandID = ?) \
                     ORDER BY facility.name ASC;"

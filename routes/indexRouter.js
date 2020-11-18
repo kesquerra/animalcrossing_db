@@ -173,6 +173,7 @@ router.post("/shop/island_change", (req, res, next) => {
 router.post("/shop_facilities/island_change", (req, res, next) => {
   Services.getFacilityShop(req.body.islandID)
   .then(function(data) {
+    console.log(data)
     res.render("shop", {
       title: {future: "Future Facilities!", current: "Current Facilities!"},
       data_name: "facility",
