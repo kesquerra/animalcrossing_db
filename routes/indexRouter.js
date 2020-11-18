@@ -63,12 +63,15 @@ router.get("/search/:table/:field/:value", (req, res, next) => {
   .then(function(form_data) {
     Database.getAllFromTableByField(req.params.table, req.params.field, req.params.value)
     .then(function(result) {
-      res.render(req.params.table, {
+      res.render("table_view", {
         css: ["table.css"],
-        table_name: req.params.table,
-        record: result,
-        column_name: form_data,
-        title: {add: "Create " + req.params.table, update: "Update " + req.params.table}
+        entity: {
+          id: "add",
+          table_name: req.params.table,
+          record: result,
+          column_name: form_data,
+          title: {add: "Create " + req.params.table, update: "Update " + req.params.table}
+        }
     })
   })
   })
