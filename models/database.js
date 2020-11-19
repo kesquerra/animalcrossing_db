@@ -123,7 +123,7 @@ function getQuery(type) {
                     ORDER BY villager.name ASC;";
             break;
         case "allVillagersNotOnIslandID":
-            query = "SELECT villager.name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, \
+            query = "SELECT villager.name, villager.villagerID, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, \
                     villager.hobby, species.name AS species, personality.name AS personality, villager.image_url AS image_url, \
                     personality.description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities \
                     FROM villager \
@@ -135,12 +135,12 @@ function getQuery(type) {
                     ORDER BY villager.name ASC;"
             break;
         case "allFacilitiesByIslandID":
-            query = "SELECT facility.name as name, island_facility.islandID as islandID FROM facility \
+            query = "SELECT facility.name, island_facility.islandID as islandID FROM facility \
                     JOIN island_facility on island_facility.facilityID = facility.facilityID AND island_facility.islandID = ? \
                     ORDER BY facility.name ASC;"
             break;
         case "allFacilitiesNotOnIslandID":
-            query = "SELECT facility.name as name FROM facility WHERE name NOT IN \
+            query = "SELECT facility.name, facility.facilityID FROM facility WHERE facility.name NOT IN \
                     (SELECT facility.facilityID FROM facility \
                         JOIN island_facility ON facility.facilityID = island_facility.facilityID AND island_facility.islandID = ?) \
                     ORDER BY facility.name ASC;"

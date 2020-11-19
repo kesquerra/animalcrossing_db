@@ -81,6 +81,10 @@ Services.getVillagerShop = function(island) {
             .then(function(current) {
                 Database.getVillagersNotOnIslandID(island)
                 .then(function(available) {
+                    available.forEach((data) => {
+                        data.islID = island
+                    });
+                    console.log(available)
                     Database.getAllFromTable("personality")
                     .then(function(personalities) {
                         resolve({
@@ -105,6 +109,9 @@ Services.getFacilityShop = function(island) {
             .then(function(current) {
                 Database.getFacilitiesNotOnIslandID(island)
                 .then(function(available) {
+                    available.forEach((data) => {
+                        data.islID = island
+                    });
                     resolve({
                         island,
                         island_vals,
