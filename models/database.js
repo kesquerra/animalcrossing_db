@@ -56,6 +56,10 @@ Database.getAllFacilitiesByIslandID = function(islandID) {
     return mysql.query(getQuery("allFacilitiesByIslandID"), [islandID]);
 }
 
+Database.getFacilitiesNotOnIslandID = function(islandID) {
+    return mysql.query(getQuery("allFacilitiesNotOnIslandID"), [islandID]);
+}
+
 
 //TODO: personality form compatibility?
 Database.addByTable = function(table, record) {
@@ -77,8 +81,6 @@ Database.addByTable = function(table, record) {
     });
     return mysql.query("INSERT INTO " + table + query_fields + " VALUES" + query_values + ";");
 }
-
-
 
 
 function getQuery(type) {
@@ -133,8 +135,15 @@ function getQuery(type) {
                     ORDER BY villager.name ASC;"
             break;
         case "allFacilitiesByIslandID":
+            query = "SELECT facility.name as name, island_facility.islandID as islandID FROM facility \
+                    JOIN island_facility on island_facility.facilityID = facility.facilityID AND island_facility.islandID = ? \
+                    ORDER BY facility.name ASC;"
+            break;
+        case "allFacilitiesNotOnIslandID":
             query = "SELECT facility.name as name FROM facility \
-                    LEFT JOIN island_facility on island_facility.facilityID = facility.facilityID AND island_facility.islandID = ? \
+                    JOIN island_facility on island_facility.facilityID = facility.facilityID AND island_facility.facilityID NOT IN \
+                    (SELECT facility.facilityID FROM facility \
+                        JOIN island_facility ON facility.facilityID = island_facility.facilityID AND island_facility.islandID = ?) \
                     ORDER BY facility.name ASC;"
             break;
         case "allIslands":

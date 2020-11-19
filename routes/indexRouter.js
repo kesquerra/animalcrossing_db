@@ -114,7 +114,27 @@ router.get("/shop", (req, res, next) => {
   Services.getVillagerShop(island)
   .then(function(data) {
     //console.log(data);
-    res.render("shop", data);
+    res.render("shop", {
+      title: {future: "Future Neighbors!", current: "Current Neighbors!"},
+      url: "/shop/island_change", 
+      data});
+  })
+  .catch(function(err) {
+    next(err);
+  }) 
+  
+})
+
+router.get("/shop_facilities", (req, res, next) => {
+  island = 1; //change to user default island
+  Services.getFacilityShop(island)
+  .then(function(data) {
+    //console.log(data);
+    res.render("shop", {
+      title: {future: "Future Facilities!", current: "Current Facilities!"},
+      data_name: "facility",
+      url: "/shop_facilities/island_change",
+      data});
   })
   .catch(function(err) {
     next(err);
@@ -140,7 +160,25 @@ router.post("/search", (req, res, next) => {
 router.post("/shop/island_change", (req, res, next) => {
   Services.getVillagerShop(req.body.islandID)
   .then(function(data) {
-    res.render("shop", data);
+    res.render("shop", {
+    title: {future: "Future Neighbors!", current: "Current Neighbors!"},
+    url: "/shop/island_change",  
+    data});
+  })
+  .catch(function(err) {
+    next(err);
+  }) 
+})
+
+router.post("/shop_facilities/island_change", (req, res, next) => {
+  Services.getFacilityShop(req.body.islandID)
+  .then(function(data) {
+    console.log(data)
+    res.render("shop", {
+      title: {future: "Future Facilities!", current: "Current Facilities!"},
+      data_name: "facility",
+      url: "/shop_facilities/island_change",
+      data});
   })
   .catch(function(err) {
     next(err);
