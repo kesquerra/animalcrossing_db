@@ -14,7 +14,7 @@ router.get("/", (req, res, next) => {
       css: ["home.css"],
       villager: {
         id: "vill",
-        column_name: data.form_data,
+        column_name: data.form_data1,
         table_name: "villager",
         title: {add: "Create A Villager"},
         form_action: ["/" + req.params.table + "/create"]},

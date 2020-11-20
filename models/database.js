@@ -60,6 +60,10 @@ Database.getFacilitiesNotOnIslandID = function(islandID) {
     return mysql.query(getQuery("allFacilitiesNotOnIslandID"), [islandID]);
 }
 
+Database.getMaxPersonalityID = function(name) {
+    return mysql.query(getQuery("maxID"));
+}
+
 
 //TODO: personality form compatibility?
 Database.addByTable = function(table, record) {
@@ -67,21 +71,42 @@ Database.addByTable = function(table, record) {
     query_values = " ("
     query_fields = " ("
     keys.forEach(function(key, idx, array) {
-        query_fields += key
-        query_values += "'"
-        query_values += record[key]
-        query_values += "'"
-        if (idx == array.length -1) {
-            query_fields += ")"
-            query_values += ")"
-        } else {
-            query_fields += ", "
-            query_values += ", "
+        if (key != "compatibility") {
+            query_fields += key
+            query_values += "'"
+            query_values += record[key]
+            query_values += "'"
+            if (idx == array.length -2) {
+                query_fields += ")"
+                query_values += ")"
+            } else {
+                query_fields += ", "
+                query_values += ", "
+            }
         }
     });
+    if (record.compatibility) {
+        Database.addCompatibilities(record.compatibility)
+    }
     return mysql.query("INSERT INTO " + table + query_fields + " VALUES" + query_values + ";");
 }
 
+Database.addCompatibilities = function(compatibility) {
+    console.log(compatibility);
+    Database.getMaxPersonalityID()
+    .then(function(personalityID) {
+        id1 = personalityID[0].personalityID + 1;
+        console.log(id1)
+        if (compatibility.length == 1) {
+            return mysql.query("INSERT INTO compatibility (p1, p2) " + "VALUES (" + id1 + ", " + compatibility + ");");
+        } 
+        else {
+            compatibility.forEach(function(id2) {
+                return mysql.query("INSERT INTO compatibility (p1, p2) " + "VALUES (" + id1 + ", " + id2 + ");");
+            })
+        }
+    })
+}
 
 function getQuery(type) {
     var query = "";
@@ -149,6 +174,8 @@ function getQuery(type) {
             query = "SELECT island.islandID, island.name FROM island \
                     ORDER BY island.islandID ASC;"
             break;
+        case "maxID":
+            query = "SELECT personalityID FROM personality WHERE personalityID=(SELECT max(personalityID) FROM personality);"
     }
     return query;
 }

@@ -84,7 +84,6 @@ Services.getVillagerShop = function(island) {
                     available.forEach((data) => {
                         data.islID = island
                     });
-                    console.log(available)
                     Database.getAllFromTable("personality")
                     .then(function(personalities) {
                         resolve({

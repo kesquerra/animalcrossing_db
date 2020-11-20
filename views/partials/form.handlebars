@@ -2,7 +2,7 @@
 <div class="modal-body mx-3">
     <div class="md-form mb-5">
         <i class="fas fa-user prefix black-text"></i>
-        <form action="/{{table_name}}/create" method="POST">
+        <form action="/{{table_name}}/create" id="form1" method="POST">
         {{#each column_name}}
         
             {{#ifCond this.DATA_TYPE "text"}}
@@ -34,13 +34,13 @@
             {{/ifCond}}
 
             {{#ifCond this.DATA_TYPE "time"}}
-            <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
+            <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
             <input name="{{this.COLUMN_NAME}}" type="time" class="form-control validate" required><br>
             {{/ifCond}}
 
             {{#ifCond this.COLUMN_KEY "MUL"}}
-            <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
-            <select name="{{this.COLUMN_NAME}}" id="add-villager" class="drop-down">
+            <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">{{this.COLUMN_NAME}}</label>
+            <select name="{{this.COLUMN_NAME}}" class="drop-down">
             {{#each this.UNIQUE_VALUES}}
                 <option value={{this.value}}>{{this.label}}</option>
             {{/each}}
@@ -49,16 +49,17 @@
 
         {{/each}}
 
-        {{#ifCond table_name "personality"}}
-            <label data-error="wrong" data-success="right" for-"orangeForm-name" class="modal-text">Compatible with</label><br>
+        {{#ifCond id "person"}}
+            <label data-error="wrong" data-success="right" for="orangeForm-name" class="modal-text">Compatible with</label><br>
             <div class="checkboxes">
             {{#each record}}
-                <input type="checkbox" id="checkbox" name="{{this.name}}" value="{{this.personalityID}}">
+                <input type="checkbox" id="checkbox" name="compatibility" value="{{this.personalityID}}">
                 <label for="{{this.name}}" class="modal-text">{{this.name}}</label>
             {{/each}}
             </div>
         {{/ifCond}}
-        <br><br><input type="submit"></form>
+            <br><br><input type="submit" id="submit1">
+        </form>
     </div>
 </div>
 
