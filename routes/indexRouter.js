@@ -8,52 +8,41 @@ const router = express.Router();
 
 // home page route
 router.get("/", (req, res, next) => {
-  Services.getFormData("villager", "name")
-  .then(function(form_data) {
-    Services.getFormData("island", "name")
-    .then(function(form_data2) {
-      Services.getFormData("personality", "name")
-      .then(function(form_data3) {
-        Services.getFormData("species", "name")
-        .then(function(form_data4) {
-          Services.getFormData("facility", "home")
-          .then(function(form_data5) {
-            Database.getAllFromTable("personality")
-            .then(function(person_data) {
-              res.status(200).render("home", {
-                css: ["home.css"],
-                villager: {
-                  id: "vill",
-                  column_name: form_data,
-                  title: {add: "Create A Villager"},
-                  form_action: ["/" + req.params.table + "/create"]},
-                island: {
-                  id: "isla",
-                  column_name: form_data2,
-                  title: {add: "Create An Island"},
-                  form_action: ["/" + req.params.table + "/create"]}, 
-                personality: {
-                  id: "person",
-                  column_name: form_data3,
-                  table_name: "personality",
-                  title: {add: "Create A Personality"},
-                  form_action: ["/" + req.params.table + "/create"],
-                  record: person_data},
-                species: {
-                  id: "spec",
-                  column_name: form_data4,
-                  title: {add: "Create A Species"},
-                  form_action: ["/" + req.params.table + "/create"]}, 
-                facility: {
-                  id: "fac",
-                  column_name: form_data5,
-                  title: {add: "Create A Facility"},
-                  form_action: ["/" + req.params.table + "/create"]}
-              })
-            })
-          })
-        })
-      }) 
+  Services.getHomePage()
+  .then(function(data) {
+    res.status(200).render("home", {
+      css: ["home.css"],
+      villager: {
+        id: "vill",
+        column_name: data.form_data1,
+        table_name: "villager",
+        title: {add: "Create A Villager"},
+        form_action: ["/" + req.params.table + "/create"]},
+      island: {
+        id: "isla",
+        column_name: data.form_data2,
+        table_name: "island",
+        title: {add: "Create An Island"},
+        form_action: ["/" + req.params.table + "/create"]}, 
+      personality: {
+        id: "person",
+        column_name: data.form_data3,
+        table_name: "personality",
+        title: {add: "Create A Personality"},
+        form_action: ["/" + req.params.table + "/create"],
+        record: data.person_data},
+      species: {
+        id: "spec",
+        column_name: data.form_data4,
+        table_name: "species",
+        title: {add: "Create A Species"},
+        form_action: ["/" + req.params.table + "/create"]}, 
+      facility: {
+        id: "fac",
+        column_name: data.form_data5,
+        table_name: "facility",
+        title: {add: "Create A Facility"},
+        form_action: ["/" + req.params.table + "/create"]}
     })
   })
 })
@@ -113,7 +102,7 @@ router.get("/shop", (req, res, next) => {
   island = 1; //change to user default island
   Services.getVillagerShop(island)
   .then(function(data) {
-    //console.log(data);
+    // console.log(data);
     res.render("shop", {
       title: {future: "Future Neighbors!", current: "Current Neighbors!"},
       url: "/shop/island_change", 
@@ -173,7 +162,6 @@ router.post("/shop/island_change", (req, res, next) => {
 router.post("/shop_facilities/island_change", (req, res, next) => {
   Services.getFacilityShop(req.body.islandID)
   .then(function(data) {
-    console.log(data)
     res.render("shop", {
       title: {future: "Future Facilities!", current: "Current Facilities!"},
       data_name: "facility",

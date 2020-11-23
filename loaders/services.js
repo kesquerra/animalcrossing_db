@@ -43,6 +43,36 @@ Services.getFormData = function(table, field_label) {
     })
 };
 
+Services.getHomePage = function() {
+    return new Promise(function(resolve, reject) {
+        Services.getFormData("villager", "name")
+        .then(function(form_data1) {
+            Services.getFormData("island", "name")
+            .then(function(form_data2) {
+                Services.getFormData("personality", "name")
+                .then(function(form_data3) {
+                    Services.getFormData("species", "name")
+                    .then(function(form_data4) {
+                        Services.getFormData("facility", "home")
+                        .then(function(form_data5) {
+                            Database.getAllFromTable("personality")
+                            .then(function(person_data) {
+                                resolve({
+                                    form_data1, 
+                                    form_data2, 
+                                    form_data3, 
+                                    form_data4, 
+                                    form_data5, 
+                                    person_data
+                                });
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    })
+}
 Services.getVillagerShop = function(island) {
     return new Promise(function(resolve, reject) {
         Database.getAllFromTable("island")
@@ -51,6 +81,9 @@ Services.getVillagerShop = function(island) {
             .then(function(current) {
                 Database.getVillagersNotOnIslandID(island)
                 .then(function(available) {
+                    available.forEach((data) => {
+                        data.islID = island
+                    });
                     Database.getAllFromTable("personality")
                     .then(function(personalities) {
                         resolve({
@@ -75,6 +108,9 @@ Services.getFacilityShop = function(island) {
             .then(function(current) {
                 Database.getFacilitiesNotOnIslandID(island)
                 .then(function(available) {
+                    available.forEach((data) => {
+                        data.islID = island
+                    });
                     resolve({
                         island,
                         island_vals,

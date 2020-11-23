@@ -60,28 +60,52 @@ Database.getFacilitiesNotOnIslandID = function(islandID) {
     return mysql.query(getQuery("allFacilitiesNotOnIslandID"), [islandID]);
 }
 
+Database.getMaxPersonalityID = function(name) {
+    return mysql.query(getQuery("maxID"));
+}
+
 
 //TODO: personality form compatibility?
 Database.addByTable = function(table, record) {
     keys = Object.keys(record)
     query_values = " ("
     query_fields = " ("
+    if (record.compatibility) {
+        keys.pop();
+        Database.addCompatibilities(record.compatibility)
+    }
     keys.forEach(function(key, idx, array) {
-        query_fields += key
-        query_values += "'"
-        query_values += record[key]
-        query_values += "'"
-        if (idx == array.length -1) {
-            query_fields += ")"
-            query_values += ")"
-        } else {
-            query_fields += ", "
-            query_values += ", "
+        if (key != "compatibility") {
+            query_fields += key
+            query_values += "'"
+            query_values += record[key]
+            query_values += "'"
+            if (idx == array.length - 1) {
+                query_fields += ")"
+                query_values += ")"
+            } else {
+                query_fields += ", "
+                query_values += ", "
+            }
         }
-    });
+    });  
     return mysql.query("INSERT INTO " + table + query_fields + " VALUES" + query_values + ";");
 }
 
+Database.addCompatibilities = function(compatibility) {
+    Database.getMaxPersonalityID()
+    .then(function(personalityID) {
+        var id1 = personalityID[0].personalityID + 1;
+        if (compatibility.length == 1) {
+            return mysql.query("INSERT INTO compatibility (p1, p2) " + "VALUES (" + id1 + ", " + compatibility + ");");
+        } 
+        else {
+            compatibility.forEach(function(id2) {
+                return mysql.query("INSERT INTO compatibility (p1, p2) " + "VALUES (" + id1 + ", " + id2 + ");");
+            });
+        };
+    });
+};
 
 function getQuery(type) {
     var query = "";
@@ -123,7 +147,7 @@ function getQuery(type) {
                     ORDER BY villager.name ASC;";
             break;
         case "allVillagersNotOnIslandID":
-            query = "SELECT villager.name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, \
+            query = "SELECT villager.name, villager.villagerID, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, \
                     villager.hobby, species.name AS species, personality.name AS personality, villager.image_url AS image_url, \
                     personality.description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities \
                     FROM villager \
@@ -135,13 +159,12 @@ function getQuery(type) {
                     ORDER BY villager.name ASC;"
             break;
         case "allFacilitiesByIslandID":
-            query = "SELECT facility.name as name, island_facility.islandID as islandID FROM facility \
+            query = "SELECT facility.name, island_facility.islandID as islandID FROM facility \
                     JOIN island_facility on island_facility.facilityID = facility.facilityID AND island_facility.islandID = ? \
                     ORDER BY facility.name ASC;"
             break;
         case "allFacilitiesNotOnIslandID":
-            query = "SELECT facility.name as name FROM facility \
-                    JOIN island_facility on island_facility.facilityID = facility.facilityID AND island_facility.facilityID NOT IN \
+            query = "SELECT facility.name, facility.facilityID FROM facility WHERE facility.facilityID NOT IN \
                     (SELECT facility.facilityID FROM facility \
                         JOIN island_facility ON facility.facilityID = island_facility.facilityID AND island_facility.islandID = ?) \
                     ORDER BY facility.name ASC;"
@@ -150,6 +173,8 @@ function getQuery(type) {
             query = "SELECT island.islandID, island.name FROM island \
                     ORDER BY island.islandID ASC;"
             break;
+        case "maxID":
+            query = "SELECT personalityID FROM personality WHERE personalityID=(SELECT max(personalityID) FROM personality);"
     }
     return query;
 }
