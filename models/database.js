@@ -95,7 +95,7 @@ Database.addCompatibilities = function(compatibility) {
     .then(function(maxID) {
         var id1 = maxID[0].personalityID + 1;
         for (id2 of compatibility) {
-            return mysql.query("INSERT INTO compatibility (p1, p2) VALUES (" + id1 + ", " + id2 + ")");
+            return mysql.query(getQuery("addCompatibility"), [id1, id2]);
         }
     })
 };
@@ -170,7 +170,7 @@ function getQuery(type) {
             query = "SELECT personalityID FROM personality WHERE personalityID=(SELECT max(personalityID) FROM personality);"
             break;
         case "addCompatibility":
-            query = "INSERT INTO compatibility (p1, p2) VALUES (?, ?);"
+            query = "INSERT INTO compatibility (p1, p2) VALUES (?, ?)"
     }
     return query;
 }
