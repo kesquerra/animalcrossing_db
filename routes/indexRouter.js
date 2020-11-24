@@ -98,15 +98,9 @@ router.post("/:table/create", (req, res, next) => {
     delete req.body.compatibility;
     Database.addCompatibilities(compatibility);
   }
-  var query = Database.addByTable(req.params.table, req.body);
-  var inserts = [query.table, query.columns, query.values];
-  sql = mysql.pool.query(query.sql, inserts, function(error, results, fields) {
-    if (error) {
-        res.write(JSON.stringify(error));
-        res.end();
-    } else {
-        res.redirect("/" + req.params.table + "/all");
-    }
+  Database.addByTable(req.params.table, req.body)
+  .then(function() {
+    res.redirect("/" + req.params.table + "/all");
   })
 })
 

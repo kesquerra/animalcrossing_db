@@ -79,16 +79,19 @@ Database.addByTable = function(table, record) {
     })
     sql = "INSERT INTO ?? (??) VALUES (?)";
     var query = {sql: sql, table: table, columns: keys, values: query_values}
-    return query
+    var inserts = [query.table, query.columns, query.values];
+    return mysql.query(sql, inserts)
 }
 
 Database.addCompatibilities = function(compatibility) {
+    console.log(compatibility)
     Database.getMaxPersonalityID()
     .then(function(maxID) {
         var id1 = maxID[0].personalityID + 1;
         for (id2 of compatibility) {
-            return mysql.query(getQuery("addCompatibility"), [id1, id2]);
+            mysql.query(getQuery("addCompatibility"), [id1, id2]);
         }
+        return
     })
 };
 
