@@ -60,51 +60,39 @@ Database.getFacilitiesNotOnIslandID = function(islandID) {
     return mysql.query(getQuery("allFacilitiesNotOnIslandID"), [islandID]);
 }
 
-Database.getMaxPersonalityID = function(name) {
+Database.getMaxPersonalityID = function() {
     return mysql.query(getQuery("maxID"));
 }
 
+Database.addCompatibility = function(p1, p2) {
+    return mysql.query(getQeury("addCompatibility") [p1, p2]);
+}
 
-//TODO: personality form compatibility?
 Database.addByTable = function(table, record) {
-    keys = Object.keys(record)
-    query_values = " ("
-    query_fields = " ("
-    if (record.compatibility) {
-        keys.pop();
-        Database.addCompatibilities(record.compatibility)
-    }
-    keys.forEach(function(key, idx, array) {
-        if (key != "compatibility") {
-            query_fields += key
-            query_values += "'"
-            query_values += record[key]
-            query_values += "'"
-            if (idx == array.length - 1) {
-                query_fields += ")"
-                query_values += ")"
-            } else {
-                query_fields += ", "
-                query_values += ", "
-            }
-        }
-    });  
-    return mysql.query("INSERT INTO " + table + query_fields + " VALUES" + query_values + ";");
+    data = Object.keys(record)
+    var keys = [];
+    var query_values = [];
+    var sql;
+    data.forEach(function(key) {
+        keys.push(key);
+        query_values.push(record[key].toString());
+    })
+    sql = "INSERT INTO ?? (??) VALUES (?)";
+    var query = {sql: sql, table: table, columns: keys, values: query_values}
+    var inserts = [query.table, query.columns, query.values];
+    return mysql.query(sql, inserts)
 }
 
 Database.addCompatibilities = function(compatibility) {
+    console.log(compatibility)
     Database.getMaxPersonalityID()
-    .then(function(personalityID) {
-        var id1 = personalityID[0].personalityID + 1;
-        if (compatibility.length == 1) {
-            return mysql.query("INSERT INTO compatibility (p1, p2) " + "VALUES (" + id1 + ", " + compatibility + ");");
-        } 
-        else {
-            compatibility.forEach(function(id2) {
-                return mysql.query("INSERT INTO compatibility (p1, p2) " + "VALUES (" + id1 + ", " + id2 + ");");
-            });
-        };
-    });
+    .then(function(maxID) {
+        var id1 = maxID[0].personalityID + 1;
+        for (id2 of compatibility) {
+            mysql.query(getQuery("addCompatibility"), [id1, id2]);
+        }
+        return
+    })
 };
 
 function getQuery(type) {
@@ -175,6 +163,9 @@ function getQuery(type) {
             break;
         case "maxID":
             query = "SELECT personalityID FROM personality WHERE personalityID=(SELECT max(personalityID) FROM personality);"
+            break;
+        case "addCompatibility":
+            query = "INSERT INTO compatibility (p1, p2) VALUES (?, ?)"
     }
     return query;
 }

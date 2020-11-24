@@ -92,6 +92,11 @@ router.get("/:table/all", (req, res, next) => {
 })
 
 router.post("/:table/create", (req, res, next) => {
+  if (req.body.compatibility) {
+    compatibility = req.body.compatibility;
+    delete req.body.compatibility;
+    Database.addCompatibilities(compatibility);
+  }
   Database.addByTable(req.params.table, req.body)
   .then(function() {
     res.redirect("/" + req.params.table + "/all");
