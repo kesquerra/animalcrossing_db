@@ -99,9 +99,8 @@ router.post("/:table/create", (req, res, next) => {
     Database.addCompatibilities(compatibility);
   }
   var query = Database.addByTable(req.params.table, req.body);
-  var sql = query.sql
-  var query_values = query.values
-  sql = mysql.pool.query(sql, query_values, function(error, results, fields) {
+  var inserts = [query.table, query.columns, query.values];
+  sql = mysql.pool.query(query.sql, inserts, function(error, results, fields) {
     if (error) {
         res.write(JSON.stringify(error));
         res.end();

@@ -75,18 +75,10 @@ Database.addByTable = function(table, record) {
     var sql;
     data.forEach(function(key) {
         keys.push(key);
-        query_values.push(record[key]);
+        query_values.push(record[key].toString());
     })
-    if (table == "villager") {
-        sql = "INSERT INTO " + table + " (" + keys + ") VALUES (?, ?, ?, ?, ?, ?)";
-    } else if (table == "personality") {
-        sql = "INSERT INTO " + table + " (" + keys + ") VALUES (?, ?, ?, ?, ?)";
-    } else if (table == "island" || table == "species") {
-        sql = "INSERT INTO " + table + " (" + keys + ") VALUES (?)";
-    } else {
-        sql = "INSERT INTO " + table + " (" + keys + ") VALUES (?, ?)";
-    }
-    var query = {sql: sql, values: query_values}
+    sql = "INSERT INTO ?? (??) VALUES (?)";
+    var query = {sql: sql, table: table, columns: keys, values: query_values}
     return query
 }
 
