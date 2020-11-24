@@ -1,7 +1,6 @@
 const express = require("express");
 var Services = require("../loaders/services.js");
 var Database = require("../models/database.js");
-var mysql = require("../loaders/mysql.js");
 const { createPool } = require("mysql");
 
 // new router will handle all request to /
