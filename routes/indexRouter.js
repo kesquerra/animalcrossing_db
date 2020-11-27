@@ -16,32 +16,32 @@ router.get("/", (req, res, next) => {
         id: "vill",
         column_name: data.form_data1,
         table_name: "villager",
-        title: {add: "Create A Villager"},
+        title: {add: "Create Villager"},
         form_action: ["/" + req.params.table + "/create"]},
       island: {
         id: "isla",
         column_name: data.form_data2,
         table_name: "island",
-        title: {add: "Create An Island"},
+        title: {add: "Create Island"},
         form_action: ["/" + req.params.table + "/create"]}, 
       personality: {
         id: "person",
         column_name: data.form_data3,
         table_name: "personality",
-        title: {add: "Create A Personality"},
+        title: {add: "Create Personality"},
         form_action: ["/" + req.params.table + "/create"],
         record: data.person_data},
       species: {
         id: "spec",
         column_name: data.form_data4,
         table_name: "species",
-        title: {add: "Create A Species"},
+        title: {add: "Create Species"},
         form_action: ["/" + req.params.table + "/create"]}, 
       facility: {
         id: "fac",
         column_name: data.form_data5,
         table_name: "facility",
-        title: {add: "Create A Facility"},
+        title: {add: "Create Facility"},
         form_action: ["/" + req.params.table + "/create"]}
     })
   })
@@ -84,6 +84,7 @@ router.get("/:table/all", (req, res, next) => {
           title: {add: "Create " + req.params.table, update: "Update " + req.params.table}
         }
         })
+        console.log(form_data)
     })
   })
   .catch(function(err) {
@@ -98,6 +99,13 @@ router.post("/:table/create", (req, res, next) => {
     Database.addCompatibilities(compatibility);
   }
   Database.addByTable(req.params.table, req.body)
+  .then(function() {
+    res.redirect("/" + req.params.table + "/all");
+  })
+})
+
+router.put("/:table/update", (req, res, next) => {
+  Database.updateByTable(req.params.table, req.body)
   .then(function() {
     res.redirect("/" + req.params.table + "/all");
   })
