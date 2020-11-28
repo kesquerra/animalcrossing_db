@@ -47,6 +47,10 @@
             </select><br>
             {{/ifCond}}
 
+            {{#ifCond this.COLUMN_KEY "PRI"}}
+            <input name="{{this.COLUMN_NAME}}" id="{{this.COLUMN_NAME}}" type="hidden" class="form-control validate"><br>       
+            {{/ifCond}} 
+
         {{/each}}
 
         {{#ifCond id "person"}}
