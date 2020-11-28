@@ -77,14 +77,78 @@ Database.addByTable = function(table, record) {
         keys.push(key);
         query_values.push(record[key].toString());
     })
+    if (table != "island_villager" && table != "island_facility" && table !="compatibility") {
+        keys = keys.slice(1, )
+        query_values = query_values.slice(1, )
+    }
+    keys = keys.slice(0, -2)
+    query_values = query_values.slice(0, -2)
     sql = "INSERT INTO ?? (??) VALUES (?)";
     var query = {sql: sql, table: table, columns: keys, values: query_values}
     var inserts = [query.table, query.columns, query.values];
     return mysql.query(sql, inserts)
 }
 
+Database.updateByTable = function(table, record) {
+    data = Object.keys(record)
+    var strings = [];
+    var inserts = [table];
+    var row_id = [];
+    var composite = false;
+    var sql; 
+
+    data.forEach(function(key) {
+        if (key == table + "ID") {
+            row_id.push(parseInt(record[key]));
+        } else {
+            inserts.push(record[key]);
+        }
+        strings.push("`" + key + "`" + " = ?")
+    })
+
+    if (table == "island_villager" || table == "island_facility" || table == "compatibility") {
+        for (var y = 1; y < inserts.length; y++) {
+            x = parseInt(inserts[y])
+            inserts[y] = x
+            composite = true; 
+        }
+        sql = sql_update_string(strings.slice(0, 2), strings.slice(0, 2), composite)
+    } else {
+        var id_column = strings[0];
+        inserts = inserts.slice(0, -2)
+        inserts.push(row_id[0]);
+        var column_strings = strings.slice(1, );
+        column_strings = column_strings.slice(0, -2)
+        sql = sql_update_string(column_strings, id_column, composite)
+    }
+    console.log(inserts)
+    return mysql.query(sql, inserts)
+}
+
+function sql_update_string(column_strings, id_column, composite) {
+    var sql = "UPDATE ?? SET ";
+    for (var i = 0; i < column_strings.length; i++) {
+        if (i == column_strings.length - 1) {
+            sql += column_strings[i]
+        } else {
+            sql += column_strings[i] + ", "
+        }
+    }
+    sql += " WHERE "
+    if (!composite) {
+        sql += id_column + ";"; 
+    } else {
+        for (var x = 0; x < id_column.length; x++) {
+            if (x == id_column.length - 1) {
+                sql += id_column[x]
+            } else {
+                sql += id_column[x] + " AND "
+            }
+        }
+    }
+    return sql
+}
 Database.addCompatibilities = function(compatibility) {
-    console.log(compatibility)
     Database.getMaxPersonalityID()
     .then(function(maxID) {
         var id1 = maxID[0].personalityID + 1;

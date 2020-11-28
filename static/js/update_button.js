@@ -52,13 +52,17 @@ function createModalData(data) {
     if (table.id == "compatibility") {
         column_names = ["p1", "p2"]
     } 
-    openModal(modalData, column_names)
+    openModal(modalData, column_names, table.id)
 }
 
-function openModal(modalData, column_names) {
+function openModal(modalData, column_names, table) {
     $(window).on('shown.bs.modal', function() {
         $('#update-modal').modal('show');
         submit = document.getElementById("submit1")
+        if (table == "compatibility" || table == "island_villager" || table == "island_facility") {
+            document.getElementById("id1").value = modalData[0]
+            document.getElementById("id2").value = modalData[1]
+        }
         submit.addEventListener('click', function(event) {
             updateData();
             event.preventDefault();
