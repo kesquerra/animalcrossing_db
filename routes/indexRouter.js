@@ -84,7 +84,6 @@ router.get("/:table/all", (req, res, next) => {
           title: {add: "Create " + req.params.table, update: "Update " + req.params.table}
         }
         })
-        console.log(form_data)
     })
   })
   .catch(function(err) {
@@ -107,7 +106,7 @@ router.post("/:table/create", (req, res, next) => {
 router.put("/:table/update", (req, res, next) => {
   Database.updateByTable(req.params.table, req.body)
   .then(function() {
-    res.redirect("/" + req.params.table + "/all");
+    res.redirect(303, "/" + req.params.table + "/all");
   })
 })
 

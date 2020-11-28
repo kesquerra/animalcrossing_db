@@ -56,11 +56,14 @@ function createModalData(data) {
 }
 
 function openModal(modalData, column_names) {
-    $(window).on('shown.bs.modal', function() { 
-        document.getElementById("form1").action = "/" + table.id + "/update";
+    $(window).on('shown.bs.modal', function() {
         $('#update-modal').modal('show');
         submit = document.getElementById("submit1")
-        submit.addEventListener('click', (updateData))
+        submit.addEventListener('click', function(event) {
+            updateData();
+            event.preventDefault();
+            $("#update-modal").modal("hide");
+        })
         for (i = 0; i < modalData.length; i++) {
             document.getElementById(column_names[i]).value = modalData[i];
         }
@@ -74,7 +77,7 @@ function updateData() {
         type: "PUT", 
         data: $('#form1').serialize(), 
         success: function(result) {
-            window.location.replace('../')
+            window.location.replace('/' + table.id + '/all')
         }
     })
 }
