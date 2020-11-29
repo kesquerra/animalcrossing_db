@@ -89,65 +89,6 @@ Database.addByTable = function(table, record) {
     return mysql.query(sql, inserts)
 }
 
-Database.updateByTable = function(table, record) {
-    data = Object.keys(record)
-    var strings = [];
-    var inserts = [table];
-    var row_id = [];
-    var composite = false;
-    var sql; 
-
-    data.forEach(function(key) {
-        if (key == table + "ID") {
-            row_id.push(parseInt(record[key]));
-        } else {
-            inserts.push(record[key]);
-        }
-        strings.push("`" + key + "`" + " = ?")
-    })
-
-    if (table == "island_villager" || table == "island_facility" || table == "compatibility") {
-        for (var y = 1; y < inserts.length; y++) {
-            x = parseInt(inserts[y])
-            inserts[y] = x
-            composite = true; 
-        }
-        sql = sql_update_string(strings.slice(0, 2), strings.slice(0, 2), composite)
-    } else {
-        var id_column = strings[0];
-        inserts = inserts.slice(0, -2)
-        inserts.push(row_id[0]);
-        var column_strings = strings.slice(1, );
-        column_strings = column_strings.slice(0, -2)
-        sql = sql_update_string(column_strings, id_column, composite)
-    }
-    console.log(inserts)
-    return mysql.query(sql, inserts)
-}
-
-function sql_update_string(column_strings, id_column, composite) {
-    var sql = "UPDATE ?? SET ";
-    for (var i = 0; i < column_strings.length; i++) {
-        if (i == column_strings.length - 1) {
-            sql += column_strings[i]
-        } else {
-            sql += column_strings[i] + ", "
-        }
-    }
-    sql += " WHERE "
-    if (!composite) {
-        sql += id_column + ";"; 
-    } else {
-        for (var x = 0; x < id_column.length; x++) {
-            if (x == id_column.length - 1) {
-                sql += id_column[x]
-            } else {
-                sql += id_column[x] + " AND "
-            }
-        }
-    }
-    return sql
-}
 Database.addCompatibilities = function(compatibility) {
     Database.getMaxPersonalityID()
     .then(function(maxID) {
@@ -158,6 +99,79 @@ Database.addCompatibilities = function(compatibility) {
         return
     })
 };
+
+Database.updateByTable = function(table, record) {
+    data = Object.keys(record)
+    var inserts = [table];
+    var values = [];
+    var composite = false;
+    var sql; 
+
+    data.forEach(function(key) {
+        values.push(record[key]);
+    })
+
+    data = data.slice(0, -2)
+
+    if (table == "island_villager" || table == "island_facility" || table == "compatibility") {
+        for (var y = 0; y < values.length; y++) {
+            x = parseInt(values[y])
+            values[y] = x
+            composite = true; 
+        }
+        inserts = insertsOrder(inserts, data, values, composite)
+        sql = sqlUpdateString(data, composite)
+    } else {
+        var row_id = values.shift();
+        var id_column = data.shift();
+        sql = sqlUpdateString(values, composite)
+        inserts = insertsOrder(inserts, data, values, composite)
+        inserts.push(id_column)
+        inserts.push(row_id);
+    }
+    return mysql.query(sql, inserts)
+}
+
+function insertsOrder(inserts, data, values, composite) {
+    if (composite) {
+        data.push(data[0])
+        data.push(data[1])
+    } else {
+        values = values.slice(0, -2)
+    }
+
+    for (var y = 0; y < data.length; y++) {
+        inserts.push(data[y]);
+        inserts.push(values[y]);
+    }
+    return inserts
+}
+
+function sqlUpdateString(data, composite) {
+    var sql = "UPDATE ?? SET ";
+    var updateString = "?? = ?"
+    for (var i = 0; i < data.length - 2; i++) {
+        if (i == data.length - 3) {
+            sql += updateString;
+        } else {
+            sql += updateString + ", ";
+        }
+    }
+    sql += " WHERE "
+    if (!composite) {
+        sql += updateString + ";"; 
+    } else {
+        for (var x = 0; x < data.length - 2; x++) {
+            if (x == data.length - 3) {
+                sql += updateString
+            } else {
+                sql += updateString + " AND "
+            }
+        }
+    }
+    return sql
+}
+
 
 function getQuery(type) {
     var query = "";
