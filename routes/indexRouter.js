@@ -114,8 +114,9 @@ router.get("/shop", (req, res, next) => {
   island = 1; //change to user default island
   Services.getVillagerShop(island)
   .then(function(data) {
-    // console.log(data);
+    console.log(data);
     res.render("shop", {
+      css: ["shop_villagers.css"],
       title: {future: "Future Neighbors!", current: "Current Neighbors!"},
       url: "/shop/island_change", 
       data});
