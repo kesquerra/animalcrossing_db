@@ -70,6 +70,7 @@ Database.addCompatibility = function(p1, p2) {
 
 Database.addByTable = function(table, record) {
     data = Object.keys(record)
+    console.log(data)
     var keys = [];
     var query_values = [];
     var sql;
@@ -77,12 +78,8 @@ Database.addByTable = function(table, record) {
         keys.push(key);
         query_values.push(record[key].toString());
     })
-    if (table != "island_villager" && table != "island_facility" && table !="compatibility") {
-        keys = keys.slice(1, )
-        query_values = query_values.slice(1, )
-    }
-    keys = keys.slice(0, -2)
-    query_values = query_values.slice(0, -2)
+    keys = keys.slice(1, )
+    query_values = query_values.slice(1, )
     sql = "INSERT INTO ?? (??) VALUES (?)";
     var query = {sql: sql, table: table, columns: keys, values: query_values}
     var inserts = [query.table, query.columns, query.values];
@@ -110,36 +107,26 @@ Database.updateByTable = function(table, record) {
     data.forEach(function(key) {
         values.push(record[key]);
     })
-
-    data = data.slice(0, -2)
+    var row_id = parseInt(values.shift());
+    var id_column = data.shift();
 
     if (table == "island_villager" || table == "island_facility" || table == "compatibility") {
         for (var y = 0; y < values.length; y++) {
             x = parseInt(values[y])
             values[y] = x
-            composite = true; 
         }
-        inserts = insertsOrder(inserts, data, values, composite)
+        inserts = insertsOrder(inserts, data, values)
         sql = sqlUpdateString(data, composite)
     } else {
-        var row_id = values.shift();
-        var id_column = data.shift();
         sql = sqlUpdateString(values, composite)
         inserts = insertsOrder(inserts, data, values, composite)
-        inserts.push(id_column)
-        inserts.push(row_id);
     }
+    inserts.push(id_column)
+    inserts.push(row_id);
     return mysql.query(sql, inserts)
 }
 
-function insertsOrder(inserts, data, values, composite) {
-    if (composite) {
-        data.push(data[0])
-        data.push(data[1])
-    } else {
-        values = values.slice(0, -2)
-    }
-
+function insertsOrder(inserts, data, values) {
     for (var y = 0; y < data.length; y++) {
         inserts.push(data[y]);
         inserts.push(values[y]);
@@ -150,8 +137,8 @@ function insertsOrder(inserts, data, values, composite) {
 function sqlUpdateString(data, composite) {
     var sql = "UPDATE ?? SET ";
     var updateString = "?? = ?"
-    for (var i = 0; i < data.length - 2; i++) {
-        if (i == data.length - 3) {
+    for (var i = 0; i < data.length; i++) {
+        if (i == data.length - 1) {
             sql += updateString;
         } else {
             sql += updateString + ", ";
@@ -161,8 +148,8 @@ function sqlUpdateString(data, composite) {
     if (!composite) {
         sql += updateString + ";"; 
     } else {
-        for (var x = 0; x < data.length - 2; x++) {
-            if (x == data.length - 3) {
+        for (var x = 0; x < data.length; x++) {
+            if (x == data.length - 1) {
                 sql += updateString
             } else {
                 sql += updateString + " AND "

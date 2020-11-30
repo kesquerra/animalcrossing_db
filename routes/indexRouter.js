@@ -72,6 +72,7 @@ router.get("/search/:table/:field/:value", (req, res, next) => {
 router.get("/:table/all", (req, res, next) => {
   Services.getFormData(req.params.table, "name")
   .then(function(form_data) {
+    console.log(form_data)
     Database.getAllFromTable(req.params.table)
     .then(function(result) {
         res.render("table_view", {
@@ -114,7 +115,7 @@ router.get("/shop", (req, res, next) => {
   island = 1; //change to user default island
   Services.getVillagerShop(island)
   .then(function(data) {
-    console.log(data);
+    // console.log(data);
     res.render("shop", {
       css: ["shop_villagers.css"],
       title: {future: "Future Neighbors!", current: "Current Neighbors!"},

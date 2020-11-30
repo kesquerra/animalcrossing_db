@@ -24,6 +24,7 @@ function updateButton(event) {
 };
 
 function createModalData(data) {
+    console.log(data)
     modalData = data.slice(0, );
     if (table.id == "species" || table.id == "island") {
         column_names = [table.id + "ID", "name"];
@@ -43,26 +44,22 @@ function createModalData(data) {
         column_names = ["personalityID", "name", "description", "wakeTime", "sleepTime", "activities"]
     }
     if (table.id == "island_villager") {
-        column_names = ["islandID", "villagerID"]
+        column_names = ["island_villagerID", "islandID", "villagerID"]
     } 
     if (table.id == "island_facility") {
-        column_names = ["islandID", "facilityID"]
+        column_names = ["island_facilityID", "islandID", "facilityID"]
 
     }
     if (table.id == "compatibility") {
-        column_names = ["p1", "p2"]
+        column_names = ["compatibilityID", "p1", "p2"]
     } 
     openModal(modalData, column_names, table.id)
 }
 
-function openModal(modalData, column_names, table) {
+function openModal(modalData, column_names) {
     $(window).on('shown.bs.modal', function() {
         $('#update-modal').modal('show');
         submit = document.getElementById("submit1")
-        if (table == "compatibility" || table == "island_villager" || table == "island_facility") {
-            document.getElementById("id1").value = modalData[0]
-            document.getElementById("id2").value = modalData[1]
-        }
         submit.addEventListener('click', function(event) {
             updateData();
             event.preventDefault();
