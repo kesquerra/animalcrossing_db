@@ -33,14 +33,15 @@
         <path fill-rule="evenodd" d="M12.331 9.5a1 1 0 0 1 0 1A4.998 4.998 0 0 1 8 13a4.998 4.998 0 0 1-4.33-2.5A1 1 0 0 1 4.535 9h6.93a1 1 0 0 1 .866.5z"/>
         <path d="M7 6.5c0 .828-.448 0-1 0s-1 .828-1 0S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 0-1 0s-1 .828-1 0S9.448 5 10 5s1 .672 1 1.5z"/>
         </svg> <a class="link" data-toggle="modal" data-target="#{{this.personality}}">{{this.personality}}</a></li>
-                {{#if this.islandID}}
-        <div class="card-body"><button type="button" class="btn btn-danger btn-sm btn-rounded">Remove <i class="fas fa-minus-circle" aria-hidden="true"></i></button></div>
+        {{#if this.islandID}}
+          <div class="card-body"><button type="button" class="btn btn-danger btn-sm btn-rounded">Remove <i class="fas fa-minus-circle" aria-hidden="true"></i></button></div>
         {{else}}
-        <form action="/island_villager/create" method="POST">
-            <input type="hidden" id="islandID" name="islandID" value={{this.islID}}>
-            <input type="hidden" id="villagerID" name="villagerID" value={{this.villagerID}}>
-            <div class="card-body"><button type="submit" class="btn btn-success btn-sm btn-rounded">Add <i class="fas fa-plus-circle" aria-hidden="true"></i></button></div>
-        </form>    
+          <form action="/island_villager/create" method="POST">
+              <input type="hidden" id="island_villagerID" name="island_villagerID" value="">
+              <input type="hidden" id="islandID" name="islandID" value={{this.islID}}>
+              <input type="hidden" id="villagerID" name="villagerID" value={{this.villagerID}}>
+              <div class="card-body"><button type="submit" class="btn btn-success btn-sm btn-rounded">Add <i class="fas fa-plus-circle" aria-hidden="true"></i></button></div>
+          </form>    
         {{/if}}
     </ul>
   </div>

@@ -70,6 +70,7 @@ Database.addCompatibility = function(p1, p2) {
 
 Database.addByTable = function(table, record) {
     data = Object.keys(record)
+    console.log(data)
     var keys = [];
     var query_values = [];
     var sql;
@@ -77,6 +78,8 @@ Database.addByTable = function(table, record) {
         keys.push(key);
         query_values.push(record[key].toString());
     })
+    keys = keys.slice(1, )
+    query_values = query_values.slice(1, )
     sql = "INSERT INTO ?? (??) VALUES (?)";
     var query = {sql: sql, table: table, columns: keys, values: query_values}
     var inserts = [query.table, query.columns, query.values];
@@ -84,7 +87,6 @@ Database.addByTable = function(table, record) {
 }
 
 Database.addCompatibilities = function(compatibility) {
-    console.log(compatibility)
     Database.getMaxPersonalityID()
     .then(function(maxID) {
         var id1 = maxID[0].personalityID + 1;
@@ -94,6 +96,69 @@ Database.addCompatibilities = function(compatibility) {
         return
     })
 };
+
+Database.updateByTable = function(table, record) {
+    data = Object.keys(record)
+    var inserts = [table];
+    var values = [];
+    var composite = false;
+    var sql; 
+
+    data.forEach(function(key) {
+        values.push(record[key]);
+    })
+    var row_id = parseInt(values.shift());
+    var id_column = data.shift();
+
+    if (table == "island_villager" || table == "island_facility" || table == "compatibility") {
+        for (var y = 0; y < values.length; y++) {
+            x = parseInt(values[y])
+            values[y] = x
+        }
+        inserts = insertsOrder(inserts, data, values)
+        sql = sqlUpdateString(data, composite)
+    } else {
+        sql = sqlUpdateString(values, composite)
+        inserts = insertsOrder(inserts, data, values, composite)
+    }
+    inserts.push(id_column)
+    inserts.push(row_id);
+    return mysql.query(sql, inserts)
+}
+
+function insertsOrder(inserts, data, values) {
+    for (var y = 0; y < data.length; y++) {
+        inserts.push(data[y]);
+        inserts.push(values[y]);
+    }
+    return inserts
+}
+
+function sqlUpdateString(data, composite) {
+    var sql = "UPDATE ?? SET ";
+    var updateString = "?? = ?"
+    for (var i = 0; i < data.length; i++) {
+        if (i == data.length - 1) {
+            sql += updateString;
+        } else {
+            sql += updateString + ", ";
+        }
+    }
+    sql += " WHERE "
+    if (!composite) {
+        sql += updateString + ";"; 
+    } else {
+        for (var x = 0; x < data.length; x++) {
+            if (x == data.length - 1) {
+                sql += updateString
+            } else {
+                sql += updateString + " AND "
+            }
+        }
+    }
+    return sql
+}
+
 
 function getQuery(type) {
     var query = "";
