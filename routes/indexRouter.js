@@ -163,6 +163,7 @@ router.post("/shop/island_change", (req, res, next) => {
   Services.getVillagerShop(req.body.islandID)
   .then(function(data) {
     res.render("shop", {
+    css: ["shop_villagers.css"],
     title: {future: "Future Neighbors!", current: "Current Neighbors!"},
     url: "/shop/island_change",  
     data});
