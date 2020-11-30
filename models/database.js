@@ -83,6 +83,11 @@ Database.addByTable = function(table, record) {
     return mysql.query(sql, inserts)
 }
 
+Database.deleteFromTable = function(table, id) {
+    field = table + "ID";
+    return mysql.query(getQuery("deleteByID"), [table, field, id])
+}
+
 Database.addCompatibilities = function(compatibility) {
     console.log(compatibility)
     Database.getMaxPersonalityID()
@@ -165,7 +170,11 @@ function getQuery(type) {
             query = "SELECT personalityID FROM personality WHERE personalityID=(SELECT max(personalityID) FROM personality);"
             break;
         case "addCompatibility":
-            query = "INSERT INTO compatibility (p1, p2) VALUES (?, ?)"
+            query = "INSERT INTO compatibility (p1, p2) VALUES (?, ?)";
+            break;
+        case "deleteByID":
+            query = "DELETE FROM ?? WHERE ?? = ?";
+            break;
     }
     return query;
 }

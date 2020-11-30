@@ -103,6 +103,13 @@ router.post("/:table/create", (req, res, next) => {
   })
 })
 
+router.post("/:table/delete", (req, res, next) => {
+  Database.deleteFromTable(req.body.table, req.body.id)
+  .then(function() {
+    res.redirect("/" + req.params.table + "/all");
+  })
+})
+
 router.get("/shop", (req, res, next) => {
   island = 1; //change to user default island
   Services.getVillagerShop(island)
