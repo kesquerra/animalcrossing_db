@@ -114,6 +114,8 @@ router.post("/:table/delete", (req, res, next) => {
   .then(function() {
     if (req.body.page == "shop") {
       res.redirect("/shop");
+    } else if (req.body.page == "island") {
+      res.redirect("/all_islands")
     } else {
       res.redirect("/" + req.params.table + "/all");
     }
