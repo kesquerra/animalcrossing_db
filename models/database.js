@@ -70,7 +70,6 @@ Database.addCompatibility = function(p1, p2) {
 
 Database.addByTable = function(table, record) {
     data = Object.keys(record)
-    console.log(data)
     var keys = [];
     var query_values = [];
     var sql;

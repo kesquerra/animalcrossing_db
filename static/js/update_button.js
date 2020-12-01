@@ -1,5 +1,6 @@
 var table = document.getElementsByTagName("table")[0];
 var tbody = table.getElementsByTagName("tbody")[0];
+var button = document.getElementById("add_button");
 
 table.addEventListener('click', (updateButton));
 
@@ -24,7 +25,6 @@ function updateButton(event) {
 };
 
 function createModalData(data) {
-    console.log(data)
     modalData = data.slice(0, );
     if (table.id == "species" || table.id == "island") {
         column_names = [table.id + "ID", "name"];
@@ -77,7 +77,11 @@ function updateData() {
         url: '/' + table.id + '/update', 
         type: "PUT", 
         data: $('#form1').serialize(), 
-        success: function(result) {
+        success: function() {
+            window.location.replace('/' + table.id + '/all')
+        },
+        error: function() {
+            alert("Duplicate entry. Try again!")
             window.location.replace('/' + table.id + '/all')
         }
     })
