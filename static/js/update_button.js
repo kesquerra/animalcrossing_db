@@ -1,14 +1,16 @@
 var table = document.getElementsByTagName("table")[0];
 var tbody = table.getElementsByTagName("tbody")[0];
-var button = document.getElementById("add_button");
+var buttons = document.getElementsByClassName("button2");
 
-table.addEventListener('click', (updateButton));
+for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', (updateButton));
+}
 
 function updateButton(event) {
     var data = [];
-    var target = event.target.closest('a');
+    var target = event.target;
     if (!target) return;
-    if (!table.contains(target)) return;
+    if (!(tbody.contains(target))) return;
 
     /* If edit button is target, remove current event listener
     and call to editRow.*/
@@ -57,13 +59,16 @@ function createModalData(data) {
 }
 
 function openModal(modalData, column_names) {
-    $(window).on('shown.bs.modal', function() {
+    $(window).on('shown.bs.modal', function(a) {
+        var button = a.relatedTarget;
+        if($(button).hasClass('no-modal')) {
+            e.stopPropagation();
+        }
         $('#update-modal').modal('show');
         submit = document.getElementById("submit1")
         submit.addEventListener('click', function(event) {
             updateData();
             event.preventDefault();
-            $("#update-modal").modal("hide");
         })
         for (i = 0; i < modalData.length; i++) {
             document.getElementById(column_names[i]).value = modalData[i];
@@ -81,8 +86,8 @@ function updateData() {
             window.location.replace('/' + table.id + '/all')
         },
         error: function() {
-            alert("Duplicate entry. Try again!")
             window.location.replace('/' + table.id + '/all')
         }
     })
+
 }
