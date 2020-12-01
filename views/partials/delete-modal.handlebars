@@ -1,0 +1,20 @@
+<!--Add Modal-->
+
+<div class="modal fade" id="delete-modal-{{this}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-text text-capitalize">Delete</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
+      </div>
+      <form action="/{{@root.entity.table_name}}/delete" id="form1" method="POST">
+      <input hidden name="table" value="{{@root.entity.table_name}}">
+      <input hidden name="id" value="{{this}}">
+      <input type="submit" id="submit2">
+      </form>
+    </div>
+  </div>
+</div>
+
