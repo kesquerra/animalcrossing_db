@@ -17,9 +17,10 @@
                     {{#each ../column_name}}
                         <td>{{lookup .. this.COLUMN_NAME}}</td>
                     {{/each}}
-                    <td><div class="button2"><a class="btn btn-light btn-sm">Update</a></div></td>
-                    <td><div class="button3"><a class="btn btn-light btn-sm">Delete</a></div></td>
+                    <td><div class="button1"><a class="btn btn-light btn-sm" data-toggle="modal" data-target="#update-modal">Update</a></div></td>
+                    <td><div class="button1"><a class="btn btn-light btn-sm" data-toggle="modal" data-target="#delete-modal-{{lookup . ../column_name.0.COLUMN_NAME}}">Delete</a></div></td>
                 </tr>
+                {{> delete-modal (lookup . ../column_name.0.COLUMN_NAME)}}
             {{/each}}
         </tbody>
     </table>

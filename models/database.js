@@ -86,6 +86,11 @@ Database.addByTable = function(table, record) {
     return mysql.query(sql, inserts)
 }
 
+Database.deleteFromTable = function(table, id) {
+    field = table + "ID";
+    return mysql.query(getQuery("deleteByID"), [table, field, id])
+}
+
 Database.addCompatibilities = function(compatibility) {
     Database.getMaxPersonalityID()
     .then(function(maxID) {
@@ -192,7 +197,8 @@ function getQuery(type) {
             query = "SELECT villager.name as name, DATE_FORMAT(villager.birthday,'%M %d') AS birthday, island_villager.islandID as islandID, \
                     villager.hobby, species.name AS species, personality.name AS personality, villager.image_url AS image_url, \
                     personality.description AS description, TIME_FORMAT(personality.wakeTime, '%h:%i %p') AS wakeTime, \
-                    TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities AS activites \
+                    TIME_FORMAT(personality.sleepTime, '%h:%i %p') AS sleepTime, personality.activities AS activites, \
+                    island_villager.island_villagerID as id \
                     FROM villager \
                     JOIN species ON villager.species = species.speciesID \
                     JOIN personality ON villager.personality = personality.personalityID \
@@ -230,7 +236,11 @@ function getQuery(type) {
             query = "SELECT personalityID FROM personality WHERE personalityID=(SELECT max(personalityID) FROM personality);"
             break;
         case "addCompatibility":
-            query = "INSERT INTO compatibility (p1, p2) VALUES (?, ?)"
+            query = "INSERT INTO compatibility (p1, p2) VALUES (?, ?)";
+            break;
+        case "deleteByID":
+            query = "DELETE FROM ?? WHERE ?? = ?";
+            break;
     }
     return query;
 }
