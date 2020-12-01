@@ -72,7 +72,6 @@ router.get("/search/:table/:field/:value", (req, res, next) => {
 router.get("/:table/all", (req, res, next) => {
   Services.getFormData(req.params.table, "name")
   .then(function(form_data) {
-    console.log(form_data)
     Database.getAllFromTable(req.params.table)
     .then(function(result) {
         res.render("table_view", {
@@ -119,12 +118,18 @@ router.post("/:table/delete", (req, res, next) => {
       res.redirect("/" + req.params.table + "/all");
     }
   })
+  .catch(function(err) {
+    next(err);
+  })
 })
 
 router.put("/:table/update", (req, res, next) => {
   Database.updateByTable(req.params.table, req.body)
   .then(function() {
     res.redirect(303, "/" + req.params.table + "/all");
+  })
+  .catch(function(err) {
+    next(err);
   })
 })
 
