@@ -92,6 +92,8 @@ router.get("/:table/all", (req, res, next) => {
 })
 
 router.post("/:table/create", (req, res, next) => {
+  page = req.body.page;
+  delete req.body.page;
   if (req.body.compatibility) {
     compatibility = req.body.compatibility;
     delete req.body.compatibility;
@@ -99,7 +101,24 @@ router.post("/:table/create", (req, res, next) => {
   }
   Database.addByTable(req.params.table, req.body)
   .then(function() {
-    res.redirect("/" + req.params.table + "/all");
+    if (page == "shop") {
+      res.redirect("/shop");
+    } else {
+      res.redirect("/" + req.params.table + "/all");
+    }
+  })
+})
+
+router.post("/:table/delete", (req, res, next) => {
+  Database.deleteFromTable(req.body.table, req.body.id)
+  .then(function() {
+    if (req.body.page == "shop") {
+      res.redirect("/shop");
+    } else if (req.body.page == "island") {
+      res.redirect("/all_islands")
+    } else {
+      res.redirect("/" + req.params.table + "/all");
+    }
   })
   .catch(function(err) {
     next(err);
