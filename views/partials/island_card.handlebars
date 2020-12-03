@@ -19,6 +19,11 @@
         {{#each facilities}}
             {{this}}<br>
         {{/each}}</li>
-      <div class="card-body"><button type="button" class="btn btn-danger btn-sm btn-rounded">Delete <i class="fas fa-minus-circle" aria-hidden="true"></i></button></div>
+      <form action="/island/delete" method="POST">
+          <input type="hidden" name="table" value="island">
+          <input type="hidden" name="id" value={{this.islandID}}>
+          <input type="hidden" name="page" value="island">
+          <div class="card-body"><button type="submit" class="btn btn-danger btn-sm btn-rounded">Delete <i class="fas fa-minus-circle" aria-hidden="true"></i></button></div>
+      </form>
   </div>
 </div>
