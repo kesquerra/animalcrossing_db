@@ -2,6 +2,7 @@ var Services = {};
 const { getAllVillagersByIslandID } = require("../models/database.js");
 var Database = require("../models/database.js");
 
+// Retrieve data from submitted form 
 Services.getFormData = function(table, field_label) {
     return new Promise(function(resolve, reject) {
         Database.getAllFieldNames(table)
@@ -27,6 +28,7 @@ Services.getFormData = function(table, field_label) {
                         "DATA_TYPE":col.DATA_TYPE,
                         "COLUMN_KEY": col.COLUMN_KEY,
                         "COLUMN_NAME": col.COLUMN_NAME,
+                        "TABLE_NAME": col.TABLE_NAME,
                         "UNIQUE_VALUES": unique_vals
                         //"UNIQUE_LABELS":
                     });
@@ -43,6 +45,7 @@ Services.getFormData = function(table, field_label) {
     })
 };
 
+// Home Page Helper to get data for modals
 Services.getHomePage = function() {
     return new Promise(function(resolve, reject) {
         Services.getFormData("villager", "name")
@@ -73,6 +76,8 @@ Services.getHomePage = function() {
         })
     })
 }
+
+// Villager Shop helper to get data for each villager card
 Services.getVillagerShop = function(island) {
     return new Promise(function(resolve, reject) {
         Database.getAllFromTable("island")
@@ -100,6 +105,7 @@ Services.getVillagerShop = function(island) {
     })
 }
 
+// Facility shop helper to get data for each facility card
 Services.getFacilityShop = function(island) {
     return new Promise(function(resolve, reject) {
         Database.getAllFromTable("island")
@@ -111,6 +117,7 @@ Services.getFacilityShop = function(island) {
                     available.forEach((data) => {
                         data.islID = island
                     });
+
                     resolve({
                         island,
                         island_vals,
@@ -123,6 +130,7 @@ Services.getFacilityShop = function(island) {
     })
 }
 
+// Island page helper to get all Island data for Island cards
 Services.getIslands = function() {
     return new Promise(function(resolve, reject) {
         Database.getAllIslands()

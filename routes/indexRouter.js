@@ -47,6 +47,7 @@ router.get("/", (req, res, next) => {
   })
 })
 
+// search table route
 router.get("/search/:table/:field/:value", (req, res, next) => {
   Services.getFormData(req.params.table, "name")
   .then(function(form_data) {
@@ -69,6 +70,7 @@ router.get("/search/:table/:field/:value", (req, res, next) => {
   })
 })
 
+// each table route
 router.get("/:table/all", (req, res, next) => {
   Services.getFormData(req.params.table, "name")
   .then(function(form_data) {
@@ -91,6 +93,7 @@ router.get("/:table/all", (req, res, next) => {
   })
 })
 
+// create row for each table route
 router.post("/:table/create", (req, res, next) => {
   page = req.body.page;
   delete req.body.page;
@@ -109,6 +112,7 @@ router.post("/:table/create", (req, res, next) => {
   })
 })
 
+// delete a row for each table route
 router.post("/:table/delete", (req, res, next) => {
   Database.deleteFromTable(req.body.table, req.body.id)
   .then(function() {
@@ -125,6 +129,7 @@ router.post("/:table/delete", (req, res, next) => {
   })
 })
 
+// update a row for each table route
 router.put("/:table/update", (req, res, next) => {
   Database.updateByTable(req.params.table, req.body)
   .then(function() {
@@ -135,6 +140,7 @@ router.put("/:table/update", (req, res, next) => {
   })
 })
 
+// shop route
 router.get("/shop", (req, res, next) => {
   island = 1; //change to user default island
   Services.getVillagerShop(island)
@@ -152,6 +158,7 @@ router.get("/shop", (req, res, next) => {
   
 })
 
+// shop facilities route
 router.get("/shop_facilities", (req, res, next) => {
   island = 1; //change to user default island
   Services.getFacilityShop(island)
@@ -169,6 +176,8 @@ router.get("/shop_facilities", (req, res, next) => {
   
 })
 
+
+// island page route
 router.get("/all_islands", (req, res, next) => {
   Services.getIslands()
   .then(function(data) {
@@ -179,11 +188,13 @@ router.get("/all_islands", (req, res, next) => {
   })
 })
 
+// search route
 router.post("/search", (req, res, next) => {
   var b = req.body;
   res.redirect("/search/" + b.table + "/" + b.field + "/" + b.value);
 })
 
+// shop island_change page route
 router.post("/shop/island_change", (req, res, next) => {
   Services.getVillagerShop(req.body.islandID)
   .then(function(data) {
@@ -198,6 +209,7 @@ router.post("/shop/island_change", (req, res, next) => {
   }) 
 })
 
+// shop facilities island_change
 router.post("/shop_facilities/island_change", (req, res, next) => {
   Services.getFacilityShop(req.body.islandID)
   .then(function(data) {

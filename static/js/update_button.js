@@ -2,18 +2,18 @@ var table = document.getElementsByTagName("table")[0];
 var tbody = table.getElementsByTagName("tbody")[0];
 var buttons = document.getElementsByClassName("button2");
 
+// Event listener to update buttons
 for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', (updateButton));
 }
 
+// Get data from row of update button clicked
 function updateButton(event) {
     var data = [];
     var target = event.target;
     if (!target) return;
     if (!(tbody.contains(target))) return;
 
-    /* If edit button is target, remove current event listener
-    and call to editRow.*/
     while (target && target.nodeName !== "TR") {
         target = target.parentNode;
     };
@@ -26,6 +26,7 @@ function updateButton(event) {
     createModalData(data)
 };
 
+// Set up column names 
 function createModalData(data) {
     modalData = data.slice(0, );
     if (table.id == "species" || table.id == "island") {
@@ -55,17 +56,35 @@ function createModalData(data) {
     if (table.id == "compatibility") {
         column_names = ["compatibilityID", "p1", "p2"]
     } 
-    openModal(modalData, column_names, table.id)
+    openModal(modalData, column_names)
 }
 
+// Open update modal with prepopulated info
 function openModal(modalData, column_names) {
     $(window).on('shown.bs.modal', function(a) {
         var button = a.relatedTarget;
+
         if($(button).hasClass('no-modal')) {
             e.stopPropagation();
         }
         $('#update-modal').modal('show');
-        submit = document.getElementById("submit1")
+        var submit = document.getElementById("submit1")
+        if (table.id == "island_villager" || table.id == "island_facility" || table.id == "compatibility") {
+            var column1 = document.getElementById(column_names[1])
+            var column2 = document.getElementById(column_names[2])
+            var null_option = document.createElement("option");
+            var null_option2 = document.createElement("option");
+            null_option.text = "NULL";
+            null_option.value = 0;
+            null_option.id = "null1"
+            null_option2.text = "NULL";
+            null_option2.value = 0;
+            null_option2.id = "null2"
+            if (!(document.getElementById("null1") || document.getElementById("null2"))) {
+                column1.add(null_option);
+                column2.add(null_option2);
+            }
+        }
         submit.addEventListener('click', function(event) {
             updateData();
             event.preventDefault();
@@ -77,6 +96,7 @@ function openModal(modalData, column_names) {
     $("#update-modal").modal();
 }
 
+// Ajax put call
 function updateData() {
     $.ajax({
         url: '/' + table.id + '/update', 
