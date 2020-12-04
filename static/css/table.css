@@ -17,15 +17,12 @@
 }
 
 .button {
-    padding-bottom: 10px;
-    size: 100px;
-    width: 400px;
-    margin: auto;
-    margin-left: 1200px;
-    transform: translate(-50%, -50%);
+    display: flex;
     opacity: 70%;
+    margin-left: 75%;
+
 }
 
 #checkbox {
-    margin: 0px 0px 0px 20px;
+    margin: 0px 0px 0px 21px;
   }

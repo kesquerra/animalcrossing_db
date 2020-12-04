@@ -13,6 +13,7 @@ Database.getAllFieldNames = function(table) {
     return mysql.query(getQuery("allFieldNames"), [table]);
 }
 
+// Retrieve unique values in columns for a table
 Database.getUniqueFromTableByField = function(table, field, field_label) {
     comp_tables = ["compatibility", "island_facility", "island_villager"]
     if (comp_tables.includes(table)) {
@@ -68,32 +69,36 @@ Database.addCompatibility = function(p1, p2) {
     return mysql.query(getQeury("addCompatibility") [p1, p2]);
 }
 
+// ADD into table
 Database.addByTable = function(table, record) {
     data = Object.keys(record)
     var keys = [];
     var query_values = [];
-    var sql;
+    var sql = "INSERT INTO ?? (??) VALUES (?)";
+
     data.forEach(function(key) {
         keys.push(key);
         query_values.push(record[key].toString());
     })
     keys = keys.slice(1, )
     query_values = query_values.slice(1, )
-    sql = "INSERT INTO ?? (??) VALUES (?)";
     var query = {sql: sql, table: table, columns: keys, values: query_values}
     var inserts = [query.table, query.columns, query.values];
     return mysql.query(sql, inserts)
 }
 
+// DELETE from table
 Database.deleteFromTable = function(table, id) {
     field = table + "ID";
     return mysql.query(getQuery("deleteByID"), [table, field, id])
 }
 
+// ADD for compatibility
 Database.addCompatibilities = function(compatibility) {
     Database.getMaxPersonalityID()
     .then(function(maxID) {
         var id1 = maxID[0].personalityID + 1;
+        if (id)
         for (id2 of compatibility) {
             mysql.query(getQuery("addCompatibility"), [id1, id2]);
         }
@@ -101,19 +106,25 @@ Database.addCompatibilities = function(compatibility) {
     })
 };
 
+// UPDATE SQL driver
 Database.updateByTable = function(table, record) {
     data = Object.keys(record)
     var inserts = [table];
     var values = [];
     var composite = false;
     var sql; 
-
+    var composites = ["island_villager", "island_facility", "compatibility"];
+    // Get column values 
     data.forEach(function(key) {
         values.push(record[key]);
+        // Column updated to null, delete row.
+        if (record[key] == 0 && composites.includes(table)) {
+            return mysql.query(getQuery("deleteByID"), [table, table + "ID", values[0]])
+        }
     })
     var row_id = parseInt(values.shift());
     var id_column = data.shift();
-
+    // composite table special cases
     if (table == "island_villager" || table == "island_facility" || table == "compatibility") {
         for (var y = 0; y < values.length; y++) {
             x = parseInt(values[y])
@@ -122,6 +133,7 @@ Database.updateByTable = function(table, record) {
         inserts = insertsOrder(inserts, data, values)
         sql = sqlUpdateString(data, composite)
     } else {
+
         sql = sqlUpdateString(values, composite)
         inserts = insertsOrder(inserts, data, values, composite)
     }
@@ -130,6 +142,7 @@ Database.updateByTable = function(table, record) {
     return mysql.query(sql, inserts)
 }
 
+// Order parameters for UPDATE
 function insertsOrder(inserts, data, values) {
     for (var y = 0; y < data.length; y++) {
         inserts.push(data[y]);
@@ -138,6 +151,7 @@ function insertsOrder(inserts, data, values) {
     return inserts
 }
 
+// Generate SQL update string with no parameters
 function sqlUpdateString(data, composite) {
     var sql = "UPDATE ?? SET ";
     var updateString = "?? = ?"
@@ -163,7 +177,7 @@ function sqlUpdateString(data, composite) {
     return sql
 }
 
-
+// Queries
 function getQuery(type) {
     var query = "";
     switch(type) {
