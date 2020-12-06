@@ -15,6 +15,8 @@
                 </form>
             {{else}}
                 <form action="/island_facility/create" method="POST">
+                <input type="hidden" name="island" value="{{@root.default_island}}">
+                <input type="hidden" name="page" value="facility">
                 <input type="hidden" id="island_facilityID" name="island_facilityID" value="">
                 <input type="hidden" id="islandID" name="islandID" value={{this.islID}}>
                 <input type="hidden" id="facilityID" name="facilityID" value={{this.facilityID}}>

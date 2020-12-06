@@ -92,8 +92,11 @@ router.get("/:table/all", (req, res, next) => {
 })
 
 router.post("/:table/create", (req, res, next) => {
+  console.log(req.body)
   page = req.body.page;
   delete req.body.page;
+  island = req.body.island;
+  delete req.body.island;
   if (req.body.compatibility) {
     compatibility = req.body.compatibility;
     delete req.body.compatibility;
@@ -102,7 +105,33 @@ router.post("/:table/create", (req, res, next) => {
   Database.addByTable(req.params.table, req.body)
   .then(function() {
     if (page == "shop") {
-      res.redirect("/shop");
+      Services.getVillagerShop(island)
+      .then(function(data) {
+        res.render("shop", {
+          default_island: Number(island),
+          css: ["shop_villagers.css"],
+          title: {future: "Future Neighbors!", current: "Current Neighbors!"},
+          url: "/shop/island_change",  
+          data});
+      })
+      .catch(function(err) {
+        next(err);
+      }) 
+    } else if (page == "island") {
+      res.redirect("/all_islands")
+    } else if  (page == "facility") {
+      Services.getFacilityShop(island)
+      .then(function(data) {
+        res.render("shop", {
+          default_island: Number(island),
+          title: {future: "Future Facilities!", current: "Current Facilities!"},
+          data_name: "facility",
+          url: "/shop_facilities/island_change",
+          data});
+      })
+      .catch(function(err) {
+        next(err);
+      })
     } else {
       res.redirect("/" + req.params.table + "/all");
     }
@@ -110,7 +139,7 @@ router.post("/:table/create", (req, res, next) => {
 })
 
 router.post("/:table/delete", (req, res, next) => {
-  console.log(req.body)
+  island = req.body.island;
   Database.deleteFromTable(req.body.table, req.body.id)
   .then(function() {
     if (req.body.page == "shop") {
@@ -129,10 +158,10 @@ router.post("/:table/delete", (req, res, next) => {
     } else if (req.body.page == "island") {
       res.redirect("/all_islands")
     } else if  (req.body.page == "facility") {
-      Services.getFacilityShop(req.body.island)
+      Services.getFacilityShop(island)
       .then(function(data) {
         res.render("shop", {
-          default_island: Number(req.body.island),
+          default_island: Number(island),
           title: {future: "Future Facilities!", current: "Current Facilities!"},
           data_name: "facility",
           url: "/shop_facilities/island_change",
