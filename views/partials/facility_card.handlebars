@@ -14,7 +14,7 @@
                 <div class="card-body"><button type="submit" class="btn btn-danger btn-sm btn-rounded">Remove <i class="fas fa-minus-circle" aria-hidden="true"></i></button></div>
                 </form>
             {{else}}
-                <form action="/island_facility/create" method="POST"></form>
+                <form action="/island_facility/create" method="POST">
                 <input type="hidden" id="island_facilityID" name="island_facilityID" value="">
                 <input type="hidden" id="islandID" name="islandID" value={{this.islID}}>
                 <input type="hidden" id="facilityID" name="facilityID" value={{this.facilityID}}>
