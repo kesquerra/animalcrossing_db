@@ -97,7 +97,7 @@ Database.deleteFromTable = function(table, id) {
 Database.addCompatibilities = function(compatibility) {
     Database.getMaxPersonalityID()
     .then(function(maxID) {
-        var id1 = maxID[0].personalityID + 1;
+        var id1 = maxID[0].personalityID;
         // console.log(compatibility)
         // console.log(id1)
         for (id2 of compatibility) {
