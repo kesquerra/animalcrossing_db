@@ -98,7 +98,8 @@ Database.addCompatibilities = function(compatibility) {
     Database.getMaxPersonalityID()
     .then(function(maxID) {
         var id1 = maxID[0].personalityID + 1;
-        if (id)
+        // console.log(compatibility)
+        // console.log(id1)
         for (id2 of compatibility) {
             mysql.query(getQuery("addCompatibility"), [id1, id2]);
         }
