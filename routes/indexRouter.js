@@ -136,6 +136,9 @@ router.post("/:table/create", (req, res, next) => {
       res.redirect("/" + req.params.table + "/all");
     }
   })
+  .catch(function(err) {
+    next(err)
+  })
 })
 
 router.post("/:table/delete", (req, res, next) => {
