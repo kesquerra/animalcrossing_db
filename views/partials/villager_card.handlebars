@@ -36,6 +36,7 @@
         {{#if this.islandID}}
           <form action="/island_villager/delete" method="POST">
           <input type="hidden" name="table" value="island_villager">
+          <input type="hidden" name="island" value="{{@root.default_island}}">
           <input type="hidden" name="id" value={{this.id}}>
           <input type="hidden" name="page" value="shop">
           <div class="card-body"><button type="submit" class="btn btn-danger btn-sm btn-rounded">Remove <i class="fas fa-minus-circle" aria-hidden="true"></i></button></div>
@@ -43,7 +44,8 @@
         {{else}}
         <form action="/island_villager/create" method="POST">
             <input type="hidden" id="island_facilityID" name="island_villagerID" value="">
-            <input type="hidden" id="islandID" name="islandID" value={{@root.data.island}}>
+            <input type="hidden" id="islandID" name="islandID" value="{{@root.data.island}}">
+            <input type="hidden" name="island" value="{{@root.default_island}}">
             <input type="hidden" id="villagerID" name="villagerID" value={{this.villagerID}}>
             <input type="hidden" name="page" value="shop">
             <div class="card-body"><button type="submit" class="btn btn-success btn-sm btn-rounded">Add <i class="fas fa-plus-circle" aria-hidden="true"></i></button></div>

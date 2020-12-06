@@ -92,7 +92,6 @@ router.get("/:table/all", (req, res, next) => {
 })
 
 router.post("/:table/create", (req, res, next) => {
-  console.log(req.body)
   page = req.body.page;
   delete req.body.page;
   island = req.body.island;
