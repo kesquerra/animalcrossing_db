@@ -231,7 +231,7 @@ function getQuery(type) {
                     ORDER BY villager.name ASC;"
             break;
         case "allFacilitiesByIslandID":
-            query = "SELECT facility.name, island_facility.islandID as islandID FROM facility \
+            query = "SELECT island_facility.island_facilityID as if_id, facility.name, island_facility.islandID as islandID FROM facility \
                     JOIN island_facility on island_facility.facilityID = facility.facilityID AND island_facility.islandID = ? \
                     ORDER BY facility.name ASC;"
             break;

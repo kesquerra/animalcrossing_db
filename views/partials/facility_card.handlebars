@@ -6,15 +6,24 @@
             <h5 class="card-title" data-toggle="tooltip" title="Facility Name">{{this.name}}</h5>
             <i class="fa fa-building fa-2x" aria-hidden="true"></i>
         </div>
-        <form action="/island_facility/create" method="POST">
+        
             {{#if this.islandID}}
-                <div class="card-body"><button type="button" class="btn btn-danger btn-sm btn-rounded">Remove <i class="fas fa-minus-circle" aria-hidden="true"></i></button></div>
+                <form action="/island_facility/delete" method="POST">
+                <input type="hidden" name="table" value="island_facility">
+                <input type="hidden" name="island" value="{{@root.default_island}}">
+                <input type="hidden" name="id" value="{{this.if_id}}">
+                <input type="hidden" name="page" value="facility">
+                <div class="card-body"><button type="submit" class="btn btn-danger btn-sm btn-rounded">Remove <i class="fas fa-minus-circle" aria-hidden="true"></i></button></div>
+                </form>
             {{else}}
+                <form action="/island_facility/create" method="POST">
+                <input type="hidden" name="island" value="{{@root.default_island}}">
+                <input type="hidden" name="page" value="facility">
                 <input type="hidden" id="island_facilityID" name="island_facilityID" value="">
                 <input type="hidden" id="islandID" name="islandID" value={{this.islID}}>
                 <input type="hidden" id="facilityID" name="facilityID" value={{this.facilityID}}>
                 <div class="card-body"><button type="submit" class="btn btn-success btn-sm btn-rounded">Add <i class="fas fa-plus-circle" aria-hidden="true"></i></button></div>
+                </form>
             {{/if}}
-        </form>
     </div>
 </div>
