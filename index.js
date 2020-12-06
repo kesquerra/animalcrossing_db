@@ -64,7 +64,8 @@ app.get("*", (req, res, next) => {
 // set function to handle other errors that occur
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send("Error");
+  res.status(500)
+  res.render("error", {errorMessage: err})
 });
 
 // set app to listen for requests at port

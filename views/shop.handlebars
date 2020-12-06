@@ -1,12 +1,15 @@
 <link rel="stylesheet" href="https://unpkg.com/flickity@2.0/dist/flickity.min.css">
 <script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>
-
 <div class="island-input">
     <form class="form-inline" action="{{url}}" method="POST">
         <div class="island-dropdown">
         <select name="islandID" class="form-control form-control-md mr-3 w-75" id="island-values">
                 {{#each data.island_vals}}
-                    <option value="{{this.islandID}}">{{this.name}}</option>
+                    {{#ifCond this.islandID @root.default_island}}
+                        <option selected value="{{this.islandID}}">{{this.name}}</option>
+                    {{else}}
+                        <option value="{{this.islandID}}">{{this.name}}</option>
+                    {{/ifCond}}
                 {{/each}}
         </select>
         </div>
