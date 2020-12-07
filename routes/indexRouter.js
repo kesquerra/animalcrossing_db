@@ -99,13 +99,16 @@ router.post("/:table/create", (req, res, next) => {
   delete req.body.page;
   island = req.body.island;
   delete req.body.island;
+  var compatibility;
   if (req.body.compatibility) {
     compatibility = req.body.compatibility;
     delete req.body.compatibility;
-    Database.addCompatibilities(compatibility);
   }
   Database.addByTable(req.params.table, req.body)
   .then(function() {
+    if(compatibility) {
+      Database.addCompatibilities(compatibility);
+    }
     if (page == "shop") {
       Services.getVillagerShop(island)
       .then(function(data) {
