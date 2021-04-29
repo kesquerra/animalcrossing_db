@@ -1,1 +1,1 @@
-# CS 340 Animal Crossing: New Horizons
+# Animal Crossing: New Horizons Database
